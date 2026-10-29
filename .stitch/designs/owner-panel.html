@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-background" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VerbFlow - Panel del Administrador (Owner TheKeas)</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Public+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-surface-variant": "#475569",
+            "surface-tint": "#0053db",
+            "on-primary": "#ffffff",
+            "on-error": "#ffffff",
+            "emerald-accent": "#16a34a",
+            "amber-accent": "#d97706",
+            "on-background": "#131b2e",
+            "on-surface": "#0f172a",
+            "on-error-container": "#93000a",
+            "inverse-primary": "#b4c5ff",
+            "surface-container-low": "#f0f7ff",
+            "surface-variant": "#dae2fd",
+            "tertiary-fixed-dim": "#62df7d",
+            "on-tertiary": "#ffffff",
+            "surface": "#ffffff",
+            "primary": "#004ac6",
+            "secondary-fixed": "#cce5ff",
+            "on-tertiary-container": "#c7ffca",
+            "tertiary-fixed": "#7ffc97",
+            "primary-fixed-dim": "#b4c5ff",
+            "primary-dark": "#1d4ed8",
+            "inverse-surface": "#283044",
+            "error-container": "#ffdad6",
+            "tertiary": "#006329",
+            "secondary-fixed-dim": "#93ccff",
+            "secondary": "#006398",
+            "outline": "#737686",
+            "surface-bright": "#faf8ff",
+            "on-tertiary-fixed": "#002109",
+            "on-primary-fixed-variant": "#003ea8",
+            "background": "#faf8ff",
+            "on-secondary-container": "#00476e",
+            "error": "#ba1a1a",
+            "on-tertiary-fixed-variant": "#005320",
+            "secondary-container": "#5bb8fe",
+            "tertiary-container": "#007f36",
+            "on-secondary-fixed": "#001d31",
+            "emerald-soft": "#dcfce7",
+            "surface-container-highest": "#dae2fd",
+            "on-secondary-fixed-variant": "#004b73",
+            "inverse-on-surface": "#eef0ff",
+            "sky-highlight": "#0284c7",
+            "surface-container-high": "#e2e7ff",
+            "outline-variant": "#c3c6d7",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary": "#ffffff",
+            "on-primary-fixed": "#00174b",
+            "primary-container": "#2563eb",
+            "surface-dim": "#d2d9f4",
+            "primary-fixed": "#dbe1ff",
+            "sky-soft": "#e0f2fe",
+            "on-primary-container": "#eeefff",
+            "surface-container": "#eaedff",
+            "amber-soft": "#fef3c7"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-sm": "0.5rem",
+            "margin-mobile": "1rem",
+            "gutter-sm": "1rem",
+            "space-xs": "0.25rem",
+            "space-xl": "2rem",
+            "margin": "2rem",
+            "gutter": "1.5rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem"
+          },
+          "fontFamily": {
+            "headline-md": ["Public Sans"],
+            "code-formula": ["JetBrains Mono"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "label-sm": ["Public Sans"],
+            "headline-lg": ["Public Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "display-lg-mobile": ["Public Sans"],
+            "display-lg": ["Public Sans"],
+            "headline-sm": ["Public Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "label-md": ["Public Sans"]
+          },
+          "fontSize": {
+            "headline-md": ["18px", { "lineHeight": "24px", "fontWeight": "700" }],
+            "code-formula": ["12px", { "lineHeight": "16px", "fontWeight": "700" }],
+            "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "label-sm": ["10px", { "lineHeight": "14px", "fontWeight": "700" }],
+            "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "display-lg-mobile": ["30px", { "lineHeight": "36px", "fontWeight": "800" }],
+            "display-lg": ["48px", { "lineHeight": "52px", "fontWeight": "800" }],
+            "headline-sm": ["16px", { "lineHeight": "22px", "fontWeight": "700" }],
+            "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="min-h-full font-body-md text-on-surface bg-background flex flex-col antialiased selection:bg-primary-fixed selection:text-primary">
+<!-- TOP APP BAR / BRAND HEADER (Shared Component: TopNavBar execution) -->
+<header class="bg-surface/95 backdrop-blur-md border-b border-outline-variant shadow-sm docked full-width top-0 sticky z-50">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 w-full">
+<!-- Brand & School Metadata -->
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary to-primary-container flex items-center justify-center text-on-primary shadow-sm shadow-primary/20">
+<span class="material-symbols-outlined text-[22px]" data-icon="shield" style="font-variation-settings: 'FILL' 1;">shield</span>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-headline-md text-headline-md font-bold text-primary tracking-tight">VerbFlow Admin</span>
+<span class="material-symbols-outlined text-amber-accent text-[18px]" data-icon="bolt">bolt</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant font-medium">Panel del Administrador (Owner TheKeas)</p>
+</div>
+</div>
+<span class="hidden md:inline-flex items-center gap-1.5 ml-3 px-2.5 py-1 rounded-full bg-sky-soft text-primary font-label-sm text-label-sm border border-secondary-container/40">
+<span class="material-symbols-outlined text-[14px]" data-icon="school">school</span>
+          I.E. Promoción Social — Palermo, Huila
+        </span>
+</div>
+<!-- Navigation Links -->
+<nav aria-label="Navegación Principal" class="hidden lg:flex items-center gap-6">
+<a class="text-primary border-b-2 border-primary font-headline-sm text-headline-sm pb-1 flex items-center gap-1.5" href="#solicitudes">
+<span>Gobernanza</span>
+<span class="inline-flex items-center justify-center px-1.5 py-0.2 rounded-full text-label-sm font-label-sm bg-amber-soft text-amber-accent border border-amber-accent/30 font-bold">2</span>
+</a>
+<a class="text-on-surface-variant hover:text-primary font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 px-2 py-1 rounded-lg" href="#docentes">
+          Docentes
+        </a>
+<a class="text-on-surface-variant hover:text-primary font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 px-2 py-1 rounded-lg" href="#malla-curricular">
+          Auditoría SIEE
+        </a>
+<a class="text-on-surface-variant hover:text-primary font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 px-2 py-1 rounded-lg" href="#bitacora">
+          Reportes
+        </a>
+</nav>
+<!-- Trailing Action Cluster & User Profile -->
+<div class="flex items-center gap-3">
+<!-- Security Verified Pill -->
+<div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-soft border border-emerald-accent/20 text-tertiary">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-accent opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-accent"></span>
+</span>
+<span class="font-label-sm text-label-sm font-bold tracking-tight">Sistema Seguro y Auditado</span>
+</div>
+<!-- Trailing Icon Actions from JSON -->
+<button aria-label="Seguridad" class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-xl transition-colors active:scale-[0.98]" type="button">
+<span class="material-symbols-outlined text-[20px]" data-icon="security">security</span>
+</button>
+<button aria-label="Notificaciones" class="relative p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-xl transition-colors active:scale-[0.98]" type="button">
+<span class="material-symbols-outlined text-[20px]" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error"></span>
+</button>
+<!-- Owner Profile Trigger -->
+<div class="flex items-center gap-2.5 pl-2 border-l border-outline-variant">
+<img alt="Avatar de Owner TheKeas I.E. Promoción Social Palermo" class="w-9 h-9 rounded-xl object-cover ring-2 ring-primary-fixed border border-surface shadow-xs" data-alt="A clean, prestigious institutional circular avatar insignia representing TheKeas, head academic administrator of I.E. Promocion Social Palermo. Crisp campus blue background with a sharp golden crest monogram, high-end vector minimalism, bright ambient light mode lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyLMTNBDoR5cl3qGzSVp9mnXl-Z2gdNwJbPTuzwr0ySl4ZWPL3P-SH3ZXS2P5BzsBa7N8idRUuso9ZW4BGAiP7zkNRl1IeTVcAPj-Aen1eB3cBNjpo3N2FwHPSNfHfIWgL8eKFC13KxqXzE-U34-aaYH-oHoyWlQl-tVCQclYYYrhkAuk7yBDZ8E1K5wBTegSVKtS89R5F1WYNywkf1ZsQW9o5ModO2SgChug5THk2v93_YNGLc4hUNZxzbyrl3BvlOdLjEW3GmXE"/>
+<div class="hidden xl:block text-left">
+<p class="font-headline-sm text-headline-sm leading-tight text-on-surface">TheKeas</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Owner • Administrador</p>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- MAIN DASHBOARD CONTENT (Constrained 1280px / max-w-7xl) -->
+<main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+<!-- SECTION 1: INSTITUTIONAL CONTEXT & GOVERNANCE HEADER -->
+<div class="relative overflow-hidden rounded-2xl bg-surface-container-lowest border border-outline-variant/70 p-6 sm:p-8 shadow-sm">
+<!-- Ambient Glow Behind Layer -->
+<div class="absolute -right-20 -top-20 w-80 h-80 bg-sky-soft/60 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute right-48 -bottom-24 w-72 h-72 bg-primary-fixed/30 rounded-full blur-2xl pointer-events-none"></div>
+<div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+<div class="space-y-2 max-w-3xl">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary-fixed text-primary font-label-sm text-label-sm uppercase tracking-wider font-bold">
+<span class="material-symbols-outlined text-[13px]" data-icon="policy">policy</span>
+              Decreto 1290 / SIEE Activo
+            </span>
+<span class="text-on-surface-variant text-label-sm font-label-sm">• Año Lectivo 2025</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg sm:text-[30px] sm:leading-[36px] font-bold text-on-surface tracking-tight">
+            Panel de Gobernanza Institucional
+          </h1>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            Consola central de supervisión curricular, validación de docentes y trazabilidad evaluativa para la <strong class="text-on-surface font-semibold">I.E. Promoción Social de Palermo (Huila)</strong>. Control biométrico y de token SIEE en tiempo real.
+          </p>
+</div>
+<!-- Quick Primary CTAs -->
+<div class="flex flex-wrap sm:flex-nowrap items-center gap-3 shrink-0">
+<button class="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-surface-container-low hover:bg-surface-container-high text-primary font-headline-sm text-headline-sm border border-secondary-fixed transition-all active:scale-[0.98]" type="button">
+<span class="material-symbols-outlined text-[20px]" data-icon="verified_user">verified_user</span>
+<span>Ver Bitácora</span>
+</button>
+<button class="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-primary to-primary-dark text-on-primary font-headline-sm text-headline-sm shadow-md shadow-primary/25 hover:shadow-lg transition-all active:scale-[0.98]" type="button">
+<span class="material-symbols-outlined text-[20px]" data-icon="person_add">person_add</span>
+<span>Nuevo Docente</span>
+</button>
+</div>
+</div>
+</div>
+<!-- SECTION 2: 4 HIGH-IMPACT INSTITUTIONAL STAT CARDS -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+<!-- Stat 1: Solicitudes Pendientes (Highlighted Attention Card) -->
+<div class="relative overflow-hidden rounded-2xl bg-surface-container-lowest border-2 border-amber-accent/40 p-5 shadow-xs transition-all hover:shadow-md">
+<div class="flex items-center justify-between">
+<div class="w-12 h-12 rounded-xl bg-amber-soft text-amber-accent flex items-center justify-center">
+<span class="material-symbols-outlined text-[26px]" data-icon="pending_actions">pending_actions</span>
+</div>
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-amber-soft text-amber-accent text-label-sm font-label-sm font-bold border border-amber-accent/20">
+<span class="h-1.5 w-1.5 rounded-full bg-amber-accent animate-ping"></span>
+            Acción Inmediata
+          </span>
+</div>
+<div class="mt-4 space-y-1">
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg text-[36px] leading-[40px] font-extrabold text-on-surface">2</span>
+<span class="font-headline-sm text-headline-sm text-amber-accent">Pendientes</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Solicitudes de Acceso</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Docentes esperando aprobación de acceso al portal y asignación de carga académica.</p>
+</div>
+</div>
+<!-- Stat 2: Docentes Activos -->
+<div class="rounded-2xl bg-surface-container-lowest border border-outline-variant/70 p-5 shadow-xs transition-all hover:shadow-md">
+<div class="flex items-center justify-between">
+<div class="w-12 h-12 rounded-xl bg-sky-soft text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[26px]" data-icon="groups">groups</span>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-soft text-emerald-accent text-label-sm font-label-sm font-bold">
+<span class="material-symbols-outlined text-[12px]" data-icon="check_circle">check_circle</span>
+            100% SIEE
+          </span>
+</div>
+<div class="mt-4 space-y-1">
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg text-[36px] leading-[40px] font-extrabold text-on-surface">4</span>
+<span class="font-headline-sm text-headline-sm text-primary">Docentes</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Cuerpo Docente Activo</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Credenciales verificadas y permisos para emitir reactivos Saber 11° vigentes.</p>
+</div>
+</div>
+<!-- Stat 3: Estudiantes Registrados -->
+<div class="rounded-2xl bg-surface-container-lowest border border-outline-variant/70 p-5 shadow-xs transition-all hover:shadow-md">
+<div class="flex items-center justify-between">
+<div class="w-12 h-12 rounded-xl bg-surface-container text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[26px]" data-icon="assignment_ind">assignment_ind</span>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-sky-soft text-secondary text-label-sm font-label-sm font-bold">
+            96% Asistencia
+          </span>
+</div>
+<div class="mt-4 space-y-1">
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg text-[36px] leading-[40px] font-extrabold text-on-surface">186</span>
+<span class="font-headline-sm text-headline-sm text-secondary">Estudiantes</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Grados 10° y 11°</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Secciones 10-A, 10-B, 11-A, 11-B con trazabilidad de diagnóstico Saber 11°.</p>
+</div>
+</div>
+<!-- Stat 4: Preguntas en Banco -->
+<div class="rounded-2xl bg-surface-container-lowest border border-outline-variant/70 p-5 shadow-xs transition-all hover:shadow-md">
+<div class="flex items-center justify-between">
+<div class="w-12 h-12 rounded-xl bg-emerald-soft text-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-[26px]" data-icon="quiz">quiz</span>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-soft text-emerald-accent text-label-sm font-label-sm font-bold">
+            7 Tiempos
+          </span>
+</div>
+<div class="mt-4 space-y-1">
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg text-[36px] leading-[40px] font-extrabold text-on-surface">1.050</span>
+<span class="font-headline-sm text-headline-sm text-tertiary">Reactivos</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Banco Curricular</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">150 reactivos estandarizados por cada tiempo verbal bajo el marco ICFES.</p>
+</div>
+</div>
+</div>
+<!-- SECTION 3: TEACHER APPROVAL INBOX (RF-50 / RF-51) -->
+<section class="space-y-4" id="solicitudes">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+<div>
+<div class="flex items-center gap-2">
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-surface">Docentes Pendientes de Verificación Institucional</h2>
+<span class="px-2.5 py-0.5 rounded-full bg-amber-soft text-amber-accent font-label-sm text-label-sm font-bold border border-amber-accent/30">
+              2 Requerimientos Activos
+            </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Verifique credenciales y asigne carga académica antes de otorgar permisos de emisión de exámenes conforme al SIEE de Palermo.
+          </p>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-primary hover:bg-surface-container-low font-headline-sm text-headline-sm px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="refresh">refresh</span>
+<span>Actualizar Solicitudes</span>
+</button>
+</div>
+</div>
+<!-- Applicant Cards Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+<!-- Applicant 1: Prof. Ana María Gómez -->
+<div class="bg-surface-container-lowest border-2 border-primary/20 rounded-2xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-all">
+<div class="space-y-4">
+<div class="flex items-start justify-between gap-4">
+<div class="flex items-center gap-3.5">
+<img alt="Foto de perfil docente Prof. Ana María Gómez" class="w-14 h-14 rounded-2xl object-cover ring-2 ring-primary-fixed" data-alt="Professional studio headshot portrait of teacher Ana Maria Gomez with welcoming academic expression, wearing dark blue formal teacher blazer, soft warm institutional campus background, high contrast lighting, clean EdTech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAe0OOkQ1UxkVqOdts14x2ioSPMJ067t0C84GdZRq6xprqRvZ6YZamnLOcfuVL9_zgSf643MtYeCPEHYh1nLbq1y2cunkE6OGEZWw69X1LdDbv6k9JhPwN5M63wsbrvf9yZz7PumtYLfh_iVFHQw96cktgIe0ovZYNJ7b77FyVxWVmAQ3T2HCVL-97oPK9GyBm-azL_v5J9g69A2bu3SwulHwpw5shxTxOS6S8lHClflVN8lAhy7dRaiv_7PFeYN7h__GoeEsFKr6Y"/>
+<div>
+<div class="flex items-center gap-1.5">
+<h3 class="font-headline-md text-headline-md font-bold text-on-surface">Prof. Ana María Gómez</h3>
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<p class="font-code-formula text-code-formula text-primary">ana.gomez@promocionsocial.edu.co</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-blue-50 text-primary font-label-sm text-label-sm border border-blue-200">
+<span class="h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></span>
+                Postulada Hoy 07:30 AM
+              </span>
+</div>
+<!-- Metadata Bento Items -->
+<div class="grid grid-cols-2 gap-3 pt-2">
+<div class="bg-surface-container-low p-3 rounded-xl border border-outline-variant/40">
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase tracking-wide">Carga Solicitada</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold flex items-center gap-1.5 mt-0.5">
+<span class="material-symbols-outlined text-[16px] text-primary" data-icon="auto_stories">auto_stories</span>
+                  11° Inglés (11-A y 11-B)
+                </span>
+</div>
+<div class="bg-surface-container-low p-3 rounded-xl border border-outline-variant/40">
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase tracking-wide">Documento / Token</span>
+<span class="font-code-formula text-code-formula text-on-surface mt-0.5 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant" data-icon="badge">badge</span>
+                  ID: 52.849.120 (Huila)
+                </span>
+</div>
+</div>
+<div class="bg-sky-soft/40 p-3 rounded-xl border border-sky-highlight/20 flex items-center gap-2.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0" data-icon="info">info</span>
+<p class="font-body-sm text-body-sm leading-tight">
+                Certificación pedagógica B2 verificada en Secretaría de Educación de Huila.
+              </p>
+</div>
+</div>
+<!-- Actions -->
+<div class="mt-6 pt-4 border-t border-outline-variant/60 flex items-center justify-end gap-3">
+<button class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-outline-variant/80 hover:bg-error-container/40 text-error font-headline-sm text-headline-sm transition-all active:scale-[0.98]" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="close">close</span>
+<span>Rechazar</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-tertiary-container hover:bg-tertiary text-on-tertiary font-headline-sm text-headline-sm shadow-sm transition-all active:scale-[0.98]" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="check" style="font-variation-settings: 'FILL' 1;">check</span>
+<span>Aprobar Cuenta</span>
+</button>
+</div>
+</div>
+<!-- Applicant 2: Prof. Roberto Silva -->
+<div class="bg-surface-container-lowest border border-outline-variant/70 rounded-2xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-all">
+<div class="space-y-4">
+<div class="flex items-start justify-between gap-4">
+<div class="flex items-center gap-3.5">
+<img alt="Foto de perfil docente Prof. Roberto Silva" class="w-14 h-14 rounded-2xl object-cover ring-2 ring-outline-variant" data-alt="Professional profile portrait of high school educator Roberto Silva wearing glasses and a formal collared shirt, intelligent and dedicated academic demeanor, soft daylight classroom backdrop, clean modern educational style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtr-skSI3z1_qwzF6HekwSKeIg1r7N2Vcn7ocmCUPsH1DZRJWb4UQMCPkkret5WB1B42qVYlbjfjZ5wLnM3PnV2YXeZKsWqHPQ1IznodXbuVNcqEhxJPhI0kdYqnhYBQqFd9kw3ko0lRVfneKUZEZ_uEmYIBjUPIXAFY7lWEfCxcmMowQK92URMKHd0N_fAf1yfCGapcX7IS7Fla-Od_tepiuAI0CmINN7zJSkndGw_EPNhDbb2UUv4x8rWnlLzUFAVQn0V3KQ2qk"/>
+<div>
+<div class="flex items-center gap-1.5">
+<h3 class="font-headline-md text-headline-md font-bold text-on-surface">Prof. Roberto Silva</h3>
+<span class="material-symbols-outlined text-outline-variant text-[18px]" data-icon="hourglass_top">hourglass_top</span>
+</div>
+<p class="font-code-formula text-code-formula text-primary">roberto.silva@promocionsocial.edu.co</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm border border-outline-variant/40">
+<span class="material-symbols-outlined text-[12px]" data-icon="history">history</span>
+                Ayer 04:15 PM
+              </span>
+</div>
+<!-- Metadata Bento Items -->
+<div class="grid grid-cols-2 gap-3 pt-2">
+<div class="bg-surface-container-low p-3 rounded-xl border border-outline-variant/40">
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase tracking-wide">Carga Solicitada</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold flex items-center gap-1.5 mt-0.5">
+<span class="material-symbols-outlined text-[16px] text-primary" data-icon="auto_stories">auto_stories</span>
+                  10° Inglés (10-A)
+                </span>
+</div>
+<div class="bg-surface-container-low p-3 rounded-xl border border-outline-variant/40">
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase tracking-wide">Documento / Token</span>
+<span class="font-code-formula text-code-formula text-on-surface mt-0.5 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant" data-icon="badge">badge</span>
+                  ID: 12.194.882 (Neiva)
+                </span>
+</div>
+</div>
+<div class="bg-surface-container-low p-3 rounded-xl border border-outline-variant/40 flex items-center gap-2.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0" data-icon="check_circle_outline">check_circle_outline</span>
+<p class="font-body-sm text-body-sm leading-tight">
+                Firma de tratamiento de datos Ley 1581 diligenciada digitalmente.
+              </p>
+</div>
+</div>
+<!-- Actions -->
+<div class="mt-6 pt-4 border-t border-outline-variant/60 flex items-center justify-end gap-3">
+<button class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-outline-variant/80 hover:bg-error-container/40 text-error font-headline-sm text-headline-sm transition-all active:scale-[0.98]" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="close">close</span>
+<span>Rechazar</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-tertiary-container hover:bg-tertiary text-on-tertiary font-headline-sm text-headline-sm shadow-sm transition-all active:scale-[0.98]" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="check" style="font-variation-settings: 'FILL' 1;">check</span>
+<span>Aprobar Cuenta</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 4: GLOBAL QUESTION BANK & CURRICULUM GOVERNANCE (7 VERB TENSES) -->
+<section class="space-y-4" id="malla-curricular">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+<div>
+<div class="flex items-center gap-2">
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-surface">Banco Curricular Global y Gobierno de Reactivos (7 Tiempos Verbales)</h2>
+<span class="px-2.5 py-0.5 rounded-full bg-emerald-soft text-emerald-accent font-label-sm text-label-sm font-bold border border-emerald-accent/30">
+              100% Validado ICFES
+            </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Supervisión taxonómica de preguntas tipo Saber 11°. Cada tiempo dispone de 150 reactivos estandarizados y calibrados.
+          </p>
+</div>
+<div class="flex items-center gap-3">
+<button class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-surface-container-low text-primary border border-secondary-fixed hover:bg-surface-container font-headline-sm text-headline-sm transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="rule">rule</span>
+<span>Verificar Taxonomía Bloom</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary text-on-primary hover:bg-primary-dark font-headline-sm text-headline-sm shadow-sm transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="cloud_upload">cloud_upload</span>
+<span>Publicar al Banco Global</span>
+</button>
+</div>
+</div>
+<!-- 7 Tense Cards Bento Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-4">
+<!-- Tense 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-4 flex flex-col justify-between hover:border-primary/40 transition-all hover:shadow-sm">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="w-7 h-7 rounded-lg bg-sky-soft text-primary flex items-center justify-center font-bold text-xs">01</span>
+<span class="material-symbols-outlined text-emerald-accent text-[18px]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface leading-snug">Present Simple</h4>
+<p class="font-code-formula text-[11px] text-on-surface-variant mt-1">S + V(s) + C</p>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/40 space-y-1.5">
+<div class="flex justify-between text-label-sm font-label-sm">
+<span class="text-on-surface-variant">Calibradas</span>
+<span class="font-bold text-emerald-accent">150 / 150</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-emerald-accent h-full rounded-full w-full"></div>
+</div>
+</div>
+</div>
+<!-- Tense 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-4 flex flex-col justify-between hover:border-primary/40 transition-all hover:shadow-sm">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="w-7 h-7 rounded-lg bg-sky-soft text-primary flex items-center justify-center font-bold text-xs">02</span>
+<span class="material-symbols-outlined text-emerald-accent text-[18px]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface leading-snug">Present Continuous</h4>
+<p class="font-code-formula text-[11px] text-on-surface-variant mt-1">S + am/is/are + V-ing</p>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/40 space-y-1.5">
+<div class="flex justify-between text-label-sm font-label-sm">
+<span class="text-on-surface-variant">Calibradas</span>
+<span class="font-bold text-emerald-accent">150 / 150</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-emerald-accent h-full rounded-full w-full"></div>
+</div>
+</div>
+</div>
+<!-- Tense 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-4 flex flex-col justify-between hover:border-primary/40 transition-all hover:shadow-sm">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="w-7 h-7 rounded-lg bg-sky-soft text-primary flex items-center justify-center font-bold text-xs">03</span>
+<span class="material-symbols-outlined text-emerald-accent text-[18px]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface leading-snug">Past Simple</h4>
+<p class="font-code-formula text-[11px] text-on-surface-variant mt-1">S + V-ed / Irr + C</p>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/40 space-y-1.5">
+<div class="flex justify-between text-label-sm font-label-sm">
+<span class="text-on-surface-variant">Calibradas</span>
+<span class="font-bold text-emerald-accent">150 / 150</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-emerald-accent h-full rounded-full w-full"></div>
+</div>
+</div>
+</div>
+<!-- Tense 4 -->
+<div class="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-4 flex flex-col justify-between hover:border-primary/40 transition-all hover:shadow-sm">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="w-7 h-7 rounded-lg bg-sky-soft text-primary flex items-center justify-center font-bold text-xs">04</span>
+<span class="material-symbols-outlined text-emerald-accent text-[18px]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface leading-snug">Past Continuous</h4>
+<p class="font-code-formula text-[11px] text-on-surface-variant mt-1">S + was/were + V-ing</p>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/40 space-y-1.5">
+<div class="flex justify-between text-label-sm font-label-sm">
+<span class="text-on-surface-variant">Calibradas</span>
+<span class="font-bold text-emerald-accent">150 / 150</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-emerald-accent h-full rounded-full w-full"></div>
+</div>
+</div>
+</div>
+<!-- Tense 5 -->
+<div class="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-4 flex flex-col justify-between hover:border-primary/40 transition-all hover:shadow-sm">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="w-7 h-7 rounded-lg bg-sky-soft text-primary flex items-center justify-center font-bold text-xs">05</span>
+<span class="material-symbols-outlined text-emerald-accent text-[18px]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface leading-snug">Future Simple</h4>
+<p class="font-code-formula text-[11px] text-on-surface-variant mt-1">S + will + V + C</p>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/40 space-y-1.5">
+<div class="flex justify-between text-label-sm font-label-sm">
+<span class="text-on-surface-variant">Calibradas</span>
+<span class="font-bold text-emerald-accent">150 / 150</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-emerald-accent h-full rounded-full w-full"></div>
+</div>
+</div>
+</div>
+<!-- Tense 6 -->
+<div class="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-4 flex flex-col justify-between hover:border-primary/40 transition-all hover:shadow-sm">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="w-7 h-7 rounded-lg bg-sky-soft text-primary flex items-center justify-center font-bold text-xs">06</span>
+<span class="material-symbols-outlined text-emerald-accent text-[18px]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface leading-snug">Future Continuous</h4>
+<p class="font-code-formula text-[11px] text-on-surface-variant mt-1">S + will be + V-ing</p>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/40 space-y-1.5">
+<div class="flex justify-between text-label-sm font-label-sm">
+<span class="text-on-surface-variant">Calibradas</span>
+<span class="font-bold text-emerald-accent">150 / 150</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-emerald-accent h-full rounded-full w-full"></div>
+</div>
+</div>
+</div>
+<!-- Tense 7 -->
+<div class="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-4 flex flex-col justify-between hover:border-primary/40 transition-all hover:shadow-sm">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="w-7 h-7 rounded-lg bg-sky-soft text-primary flex items-center justify-center font-bold text-xs">07</span>
+<span class="material-symbols-outlined text-emerald-accent text-[18px]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface leading-snug">Present Perfect</h4>
+<p class="font-code-formula text-[11px] text-on-surface-variant mt-1">S + have/has + V-pp</p>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/40 space-y-1.5">
+<div class="flex justify-between text-label-sm font-label-sm">
+<span class="text-on-surface-variant">Calibradas</span>
+<span class="font-bold text-emerald-accent">150 / 150</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-emerald-accent h-full rounded-full w-full"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 5: AUDIT LOG & SECURITY TRACEABILITY (Ley 1581 & SIEE) -->
+<section class="bg-surface-container-lowest border border-outline-variant/70 rounded-2xl p-6 shadow-sm space-y-5" id="bitacora">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+<div>
+<div class="flex items-center gap-2">
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-surface">Bitácora de Trazabilidad y Seguridad</h2>
+<span class="px-2 py-0.5 rounded-full bg-sky-soft text-primary font-label-sm text-label-sm font-bold">
+              Auditoría Ley 1581 &amp; SIEE
+            </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Registro inmutable de transacciones académicas, generación de exámenes y consentimientos digitales en el municipio de Palermo.
+          </p>
+</div>
+<!-- Filter Chips -->
+<div class="flex flex-wrap items-center gap-2">
+<button class="px-3 py-1.5 rounded-xl bg-primary text-on-primary font-label-md text-label-md shadow-xs" type="button">
+            Todos los eventos
+          </button>
+<button class="px-3 py-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant font-label-md text-label-md transition-colors" type="button">
+            Accesos docentes
+          </button>
+<button class="px-3 py-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant font-label-md text-label-md transition-colors" type="button">
+            Exámenes generados
+          </button>
+<button class="px-3 py-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant font-label-md text-label-md transition-colors" type="button">
+            Protección de datos
+          </button>
+</div>
+</div>
+<!-- Audit Log Table -->
+<div class="overflow-x-auto rounded-xl border border-outline-variant/60">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant/60">
+<th class="py-3 px-4 font-headline-sm text-[13px] text-on-surface font-bold" scope="col">Marca de Tiempo</th>
+<th class="py-3 px-4 font-headline-sm text-[13px] text-on-surface font-bold" scope="col">Operador</th>
+<th class="py-3 px-4 font-headline-sm text-[13px] text-on-surface font-bold" scope="col">Acción Ejecutada</th>
+<th class="py-3 px-4 font-headline-sm text-[13px] text-on-surface font-bold" scope="col">Entidad Afectada</th>
+<th class="py-3 px-4 font-headline-sm text-[13px] text-on-surface font-bold" scope="col">Dirección IP</th>
+<th class="py-3 px-4 font-headline-sm text-[13px] text-on-surface font-bold text-center" scope="col">Estado</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/40 bg-surface-container-lowest font-body-sm text-body-sm">
+<!-- Entry 1 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3.5 px-4 font-code-formula text-code-formula text-on-surface-variant whitespace-nowrap">
+                Hoy 08:00 AM
+              </td>
+<td class="py-3.5 px-4 font-headline-sm text-headline-sm text-on-surface whitespace-nowrap">
+                Prof. Carlos Martínez
+              </td>
+<td class="py-3.5 px-4 text-on-surface">
+<span class="inline-flex items-center gap-1.5 font-medium">
+<span class="material-symbols-outlined text-[16px] text-primary" data-icon="post_add">post_add</span>
+                  Generación de Examen VF-4821
+                </span>
+</td>
+<td class="py-3.5 px-4 text-on-surface-variant whitespace-nowrap">
+                Grado 10-A (Past Continuous)
+              </td>
+<td class="py-3.5 px-4 font-code-formula text-code-formula text-on-surface-variant">
+                181.129.40.12 (Palermo)
+              </td>
+<td class="py-3.5 px-4 text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-soft text-emerald-accent font-label-sm text-label-sm font-bold">
+<span class="h-1.5 w-1.5 rounded-full bg-emerald-accent"></span>
+                  Auditado
+                </span>
+</td>
+</tr>
+<!-- Entry 2 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3.5 px-4 font-code-formula text-code-formula text-on-surface-variant whitespace-nowrap">
+                Hoy 07:30 AM
+              </td>
+<td class="py-3.5 px-4 font-headline-sm text-headline-sm text-on-surface whitespace-nowrap">
+                Sistema Registro
+              </td>
+<td class="py-3.5 px-4 text-on-surface">
+<span class="inline-flex items-center gap-1.5 font-medium">
+<span class="material-symbols-outlined text-[16px] text-amber-accent" data-icon="person_search">person_search</span>
+                  Nueva Solicitud de Acceso
+                </span>
+</td>
+<td class="py-3.5 px-4 text-on-surface-variant whitespace-nowrap">
+                Prof. Ana María Gómez
+              </td>
+<td class="py-3.5 px-4 font-code-formula text-code-formula text-on-surface-variant">
+                190.158.84.10
+              </td>
+<td class="py-3.5 px-4 text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-soft text-amber-accent font-label-sm text-label-sm font-bold">
+<span class="h-1.5 w-1.5 rounded-full bg-amber-accent animate-pulse"></span>
+                  Pendiente
+                </span>
+</td>
+</tr>
+<!-- Entry 3 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3.5 px-4 font-code-formula text-code-formula text-on-surface-variant whitespace-nowrap">
+                Ayer 06:10 PM
+              </td>
+<td class="py-3.5 px-4 font-headline-sm text-headline-sm text-on-surface whitespace-nowrap font-bold text-primary">
+                TheKeas (Owner)
+              </td>
+<td class="py-3.5 px-4 text-on-surface">
+<span class="inline-flex items-center gap-1.5 font-medium">
+<span class="material-symbols-outlined text-[16px] text-primary" data-icon="shield">shield</span>
+                  Actualización Regla Anti-Fraude
+                </span>
+</td>
+<td class="py-3.5 px-4 text-on-surface-variant whitespace-nowrap">
+                Servidor de Pruebas
+              </td>
+<td class="py-3.5 px-4 font-code-formula text-code-formula text-on-surface-variant">
+                186.84.110.5 (Owner HQ)
+              </td>
+<td class="py-3.5 px-4 text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-sky-soft text-primary font-label-sm text-label-sm font-bold">
+<span class="h-1.5 w-1.5 rounded-full bg-primary"></span>
+                  Exitoso
+                </span>
+</td>
+</tr>
+<!-- Entry 4 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3.5 px-4 font-code-formula text-code-formula text-on-surface-variant whitespace-nowrap">
+                Ayer 02:45 PM
+              </td>
+<td class="py-3.5 px-4 font-headline-sm text-headline-sm text-on-surface whitespace-nowrap">
+                Estudiante Alex Rivera
+              </td>
+<td class="py-3.5 px-4 text-on-surface">
+<span class="inline-flex items-center gap-1.5 font-medium">
+<span class="material-symbols-outlined text-[16px] text-emerald-accent" data-icon="fact_check">fact_check</span>
+                  Consentimiento Informado Ley 1581
+                </span>
+</td>
+<td class="py-3.5 px-4 text-on-surface-variant whitespace-nowrap">
+                Base de Datos SIEE
+              </td>
+<td class="py-3.5 px-4 font-code-formula text-code-formula text-on-surface-variant">
+                181.129.40.88
+              </td>
+<td class="py-3.5 px-4 text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-soft text-emerald-accent font-label-sm text-label-sm font-bold">
+<span class="h-1.5 w-1.5 rounded-full bg-emerald-accent"></span>
+                  Registrado
+                </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination / Log Footer -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 text-on-surface-variant">
+<p class="font-body-sm text-body-sm">
+          Mostrando 4 de 1,280 registros firmados digitalmente (SHA-256 Huila Node).
+        </p>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container-low font-headline-sm text-headline-sm disabled:opacity-50" disabled="" type="button">
+            Anterior
+          </button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container text-primary font-headline-sm text-headline-sm hover:bg-surface-container-high" type="button">
+            Siguiente
+          </button>
+</div>
+</div>
+</section>
+</main>
+<!-- INSTITUTIONAL FOOTER -->
+<footer class="mt-12 bg-surface-container-lowest border-t border-outline-variant/70 py-8">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+<div class="space-y-1">
+<div class="flex items-center justify-center md:justify-start gap-2">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">VerbFlow</span>
+<span class="text-on-surface-variant text-body-sm">— Institución Educativa Promoción Social (Palermo, Huila)</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Panel del Owner TheKeas • Cumplimiento Ley 1581 de 2012 y Decreto 1290 MEN • Soporte Técnico Rectoría y Secretaría
+        </p>
+</div>
+<div class="flex items-center gap-4 text-label-md font-label-md text-on-surface-variant">
+<span class="inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-tertiary" data-icon="lock">lock</span>
+          Cifrado TLS 1.3
+        </span>
+<span>•</span>
+<span>SIEE Certificado</span>
+<span>•</span>
+<a class="text-primary hover:underline" href="#">Políticas de Tratamiento</a>
+</div>
+</div>
+</footer>
+</body></html>

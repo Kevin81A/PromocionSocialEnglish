@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+  <title>VerbFlow - Portal Docente (Teacher Suite)</title>
+  
+  <!-- Tipografías Institucionales Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Public+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+  <!-- Estilos Institucionales (Campus Blue & 100% Responsivo) -->
+  <link rel="stylesheet" href="../css/styles.css"/>
+</head>
+<body>
+
+  <!-- BARRA DE NAVEGACIÓN INSTITUCIONAL -->
+  <header class="vf-header">
+    <div class="vf-container vf-header-inner">
+      <div class="vf-brand">
+        <a href="index.html" class="vf-brand">
+          <div class="vf-brand-logo">
+            <span class="material-symbols-outlined">co_present</span>
+          </div>
+          <div>
+            <div style="display: flex; align-items: center; gap: 0.4rem;">
+              <span class="vf-brand-title">VerbFlow</span>
+              <span class="vf-badge vf-badge-teacher">Docente</span>
+            </div>
+            <p class="vf-brand-subtitle">I.E. Promoción Social • Palermo</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Navegación Docente Escritorio -->
+      <nav class="vf-nav-cluster">
+        <a href="#clases" class="vf-nav-link active">
+          <span class="material-symbols-outlined" style="font-size: 1.1rem;">class</span>
+          <span>Mis Clases</span>
+        </a>
+        <a href="#evaluaciones" class="vf-nav-link">
+          <span class="material-symbols-outlined" style="font-size: 1.1rem;">quiz</span>
+          <span>Exámenes</span>
+        </a>
+        <a href="#calificaciones" class="vf-nav-link">
+          <span class="material-symbols-outlined" style="font-size: 1.1rem;">analytics</span>
+          <span>Sábana de Notas</span>
+        </a>
+      </nav>
+
+      <!-- Barra de Acciones y Usuario -->
+      <div class="vf-header-actions">
+        
+        <!-- Botón Menú Móvil -->
+        <button type="button" class="vf-mobile-nav-toggle" id="btnMobileToggleTeacher" aria-label="Abrir menú">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+
+        <!-- Crear Examen Rápido -->
+        <button type="button" class="vf-btn vf-btn-primary" id="btnNewExam" style="border-radius: var(--radius-full); padding: 0.4rem 0.75rem;">
+          <span class="material-symbols-outlined" style="font-size: 1.1rem;">add</span>
+          <span class="vf-btn-text-responsive">Nuevo Examen</span>
+        </button>
+
+        <!-- Conmutador de Tema (☀️ / 🌙) -->
+        <button type="button" class="vf-theme-toggle" data-action="toggle-theme" title="Alternar entre modo claro y modo oscuro">
+          <span class="material-symbols-outlined">dark_mode</span>
+          <span class="vf-theme-label">Modo Oscuro</span>
+        </button>
+
+        <!-- Perfil Docente -->
+        <div class="vf-profile-pill">
+          <div class="vf-avatar-circle" style="background: var(--primary); color: #fff;">ML</div>
+          <div class="vf-profile-text" style="text-align: left;">
+            <div style="font-size: 0.75rem; font-weight: 700; line-height: 1.1;">Lic. Martha Lucía</div>
+            <div style="font-size: 0.65rem; color: var(--primary); font-weight: 600;">Docente Inglés</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Menú Móvil Drawer -->
+    <div class="vf-mobile-drawer" id="mobileDrawerTeacher">
+      <a href="#clases" class="vf-nav-link active">
+        <span class="material-symbols-outlined">class</span>
+        <span>Mis Clases</span>
+      </a>
+      <a href="#calificaciones" class="vf-nav-link">
+        <span class="material-symbols-outlined">analytics</span>
+        <span>Sábana de Calificaciones</span>
+      </a>
+      <a href="index.html" class="vf-nav-link">
+        <span class="material-symbols-outlined">school</span>
+        <span>Ir al Portal Estudiantil</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="vf-container" style="padding-top: 1.5rem; padding-bottom: 3.5rem; flex: 1;">
+    
+    <!-- ENCABEZADO Y RESUMEN GENERAL -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
+      <div>
+        <h1 class="font-headline" style="font-size: clamp(1.4rem, 3vw, 1.85rem); font-weight: 800; color: var(--text-main);">
+          Panel de Control Docente
+        </h1>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">
+          Gestión de grupos escolares, configuración de evaluaciones oficiales y monitoreo en tiempo real.
+        </p>
+      </div>
+
+      <!-- Selector de Grupo Activo -->
+      <div style="display: flex; align-items: center; gap: 0.4rem; max-width: 100%;">
+        <span style="font-size: 0.775rem; font-weight: 600; color: var(--text-subtle); white-space: nowrap;">Grupo activo:</span>
+        <select class="vf-btn vf-btn-secondary" id="classSelector" style="padding: 0.4rem 0.75rem; border-radius: var(--radius-full); font-weight: 700; font-size: 0.8rem; max-width: 220px;">
+          <option value="1102" selected>Grado 11-02 (VF-1102)</option>
+          <option value="1101">Grado 11-01 (VF-1101)</option>
+          <option value="1002">Grado 10-02 (VF-1002)</option>
+          <option value="1001">Grado 10-01 (VF-1001)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- TARJETAS DE MÉTRICAS INSTITUCIONALES -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.75rem;">
+      <div class="vf-card" style="padding: 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+          <span style="font-size: 0.725rem; font-weight: 700; color: var(--text-subtle); text-transform: uppercase;">Estudiantes en 11-02</span>
+          <span class="material-symbols-outlined text-primary">groups</span>
+        </div>
+        <div style="font-size: 1.65rem; font-weight: 800; font-family: 'Public Sans', sans-serif;">38 Alumnos</div>
+        <div style="font-size: 0.725rem; color: var(--success); font-weight: 600; margin-top: 0.15rem;">● 100% Consentimiento Ley 1581</div>
+      </div>
+
+      <div class="vf-card" style="padding: 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+          <span style="font-size: 0.725rem; font-weight: 700; color: var(--text-subtle); text-transform: uppercase;">Promedio del Grupo</span>
+          <span class="material-symbols-outlined text-success">grade</span>
+        </div>
+        <div style="font-size: 1.65rem; font-weight: 800; font-family: 'Public Sans', sans-serif; color: var(--success);">4.18 <span style="font-size: 0.9rem; color: var(--text-subtle);">/ 5.00</span></div>
+        <div style="font-size: 0.725rem; color: var(--text-muted); margin-top: 0.15rem;">Desempeño Alto Oficial</div>
+      </div>
+
+      <div class="vf-card" style="padding: 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+          <span style="font-size: 0.725rem; font-weight: 700; color: var(--text-subtle); text-transform: uppercase;">Tasa de Aprobación</span>
+          <span class="material-symbols-outlined text-primary">verified_user</span>
+        </div>
+        <div style="font-size: 1.65rem; font-weight: 800; font-family: 'Public Sans', sans-serif;">89.5%</div>
+        <div style="font-size: 0.725rem; color: var(--text-muted); margin-top: 0.15rem;">34 de 38 con nota &ge; 3.00</div>
+      </div>
+
+      <div class="vf-card" style="padding: 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+          <span style="font-size: 0.725rem; font-weight: 700; color: var(--text-subtle); text-transform: uppercase;">Alertas de Refuerzo</span>
+          <span class="material-symbols-outlined text-danger">warning</span>
+        </div>
+        <div style="font-size: 1.65rem; font-weight: 800; font-family: 'Public Sans', sans-serif; color: var(--danger);">4 Alumnos</div>
+        <div style="font-size: 0.725rem; color: var(--danger); font-weight: 600; margin-top: 0.15rem;">Requieren plan de apoyo (&lt; 3.00)</div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN: SÁBANA DE NOTAS INSTITUCIONAL -->
+    <section class="vf-card" id="calificaciones" style="margin-bottom: 2rem; padding: 1.25rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+        <div>
+          <h2 class="font-headline" style="font-size: 1.25rem; font-weight: 800; color: var(--text-main);">
+            Sábana de Calificaciones - Grado 11-02
+          </h2>
+          <p style="font-size: 0.775rem; color: var(--text-muted);">
+            Escala oficial 1.00 a 5.00 • Cálculo automático según aciertos y pruebas orales.
+          </p>
+        </div>
+        
+        <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+          <input type="text" placeholder="Buscar estudiante..." style="padding: 0.35rem 0.7rem; border-radius: var(--radius-full); border: 1px solid var(--border-color); background: var(--bg-app); font-size: 0.8rem;"/>
+          <button type="button" class="vf-btn vf-btn-secondary" style="border-radius: var(--radius-full); font-size: 0.775rem; padding: 0.35rem 0.75rem;" onclick="alert('Exportando planilla oficial en CSV/Excel...');">
+            <span class="material-symbols-outlined" style="font-size: 0.95rem;">download</span>
+            <span>Exportar</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="vf-table-container">
+        <table class="vf-table">
+          <thead>
+            <tr>
+              <th>Estudiante</th>
+              <th>Prueba Oral</th>
+              <th>Prueba Escrita</th>
+              <th>Nota Definitiva</th>
+              <th>Desempeño</th>
+              <th>Monitoreo</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong>Alex Rivera</strong><br/>
+                <span style="font-size: 0.725rem; color: var(--text-subtle);">@alex_rivera • 1102-01</span>
+              </td>
+              <td>4.80 (Alibi)</td>
+              <td>4.60 (10/10)</td>
+              <td><strong style="color: var(--success); font-size: 1.05rem;">4.70</strong></td>
+              <td><span class="vf-badge vf-badge-success">Superior</span></td>
+              <td><span class="vf-badge vf-badge-owner" style="font-size: 0.65rem;">0 avisos</span></td>
+              <td><button type="button" class="vf-btn vf-btn-secondary" style="padding: 0.25rem 0.55rem; font-size: 0.725rem;" onclick="alert('Historial detallado de Alex Rivera.');">Ver</button></td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Camila Perdomo</strong><br/>
+                <span style="font-size: 0.725rem; color: var(--text-subtle);">@camilap • 1102-02</span>
+              </td>
+              <td>4.20 (Cafeteria)</td>
+              <td>4.40 (9/10)</td>
+              <td><strong style="color: var(--success); font-size: 1.05rem;">4.30</strong></td>
+              <td><span class="vf-badge vf-badge-success">Alto</span></td>
+              <td><span class="vf-badge vf-badge-owner" style="font-size: 0.65rem;">0 avisos</span></td>
+              <td><button type="button" class="vf-btn vf-btn-secondary" style="padding: 0.25rem 0.55rem; font-size: 0.725rem;">Ver</button></td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Sebastián Trujillo</strong><br/>
+                <span style="font-size: 0.725rem; color: var(--text-subtle);">@strujillo • 1102-03</span>
+              </td>
+              <td>3.50 (Tatacoa)</td>
+              <td>3.40 (7/10)</td>
+              <td><strong style="color: var(--primary); font-size: 1.05rem;">3.45</strong></td>
+              <td><span class="vf-badge vf-badge-student">Básico</span></td>
+              <td><span class="vf-badge vf-badge-warning" style="font-size: 0.65rem;">1 aviso</span></td>
+              <td><button type="button" class="vf-btn vf-btn-secondary" style="padding: 0.25rem 0.55rem; font-size: 0.725rem;">Ver</button></td>
+            </tr>
+            <tr style="background: rgba(220, 38, 38, 0.04);">
+              <td>
+                <strong>Daniel Cuéllar</strong><br/>
+                <span style="font-size: 0.725rem; color: var(--text-subtle);">@dani_c • 1102-04</span>
+              </td>
+              <td>2.20 (Homework)</td>
+              <td>2.60 (4/10)</td>
+              <td><strong style="color: var(--danger); font-size: 1.05rem;">2.40</strong></td>
+              <td><span class="vf-badge vf-badge-danger">Bajo (&lt; 3.0)</span></td>
+              <td><span class="vf-badge vf-badge-danger" style="font-size: 0.65rem;">3 avisos</span></td>
+              <td><button type="button" class="vf-btn vf-btn-primary" style="padding: 0.25rem 0.55rem; font-size: 0.725rem; background: var(--danger);" onclick="alert('Generar plan de refuerzo.');">Refuerzo</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL: CREAR NUEVA EVALUACIÓN -->
+  <div class="vf-modal-overlay" id="newExamModal">
+    <div class="vf-modal">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 0.65rem; margin-bottom: 1rem;">
+        <h2 class="font-headline" style="font-size: 1.25rem; font-weight: 800; color: var(--text-main);">Programar Evaluación</h2>
+        <button type="button" id="btnCloseExamModal" class="vf-btn vf-btn-secondary" style="padding: 0.3rem; border-radius: var(--radius-full);">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      <form id="formCreateExam" style="display: flex; flex-direction: column; gap: 0.85rem;">
+        <div>
+          <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-subtle); text-transform: uppercase;">Título de la Prueba</label>
+          <input type="text" placeholder="Ej: Evaluación Parcial - Past Continuous & Perfect" required style="width: 100%; padding: 0.55rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: var(--bg-app); margin-top: 0.2rem;"/>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+          <div>
+            <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-subtle); text-transform: uppercase;">Grado / Clase</label>
+            <select style="width: 100%; padding: 0.55rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: var(--bg-app); margin-top: 0.2rem;">
+              <option>Grado 11-02</option>
+              <option>Grado 11-01</option>
+              <option>Grado 10-02</option>
+              <option>Grado 10-01</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-subtle); text-transform: uppercase;">Código de Acceso</label>
+            <input type="text" value="VF-1102" readonly style="width: 100%; padding: 0.55rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: var(--bg-app); margin-top: 0.2rem; font-family: 'JetBrains Mono', monospace; font-weight: 700;"/>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+          <div>
+            <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-subtle); text-transform: uppercase;">Total Preguntas</label>
+            <input type="number" min="5" max="30" value="10" style="width: 100%; padding: 0.55rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: var(--bg-app); margin-top: 0.2rem;"/>
+          </div>
+          <div>
+            <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-subtle); text-transform: uppercase;">Límite de Tiempo (Minutos)</label>
+            <input type="number" min="10" max="120" value="45" style="width: 100%; padding: 0.55rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: var(--bg-app); margin-top: 0.2rem;"/>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 0.5rem;">
+          <button type="button" id="btnCancelExam" class="vf-btn vf-btn-secondary">Cancelar</button>
+          <button type="submit" class="vf-btn vf-btn-primary">Publicar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="../js/theme-manager.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const btnNewExam = document.getElementById("btnNewExam");
+      const newExamModal = document.getElementById("newExamModal");
+      const btnCloseExamModal = document.getElementById("btnCloseExamModal");
+      const btnCancelExam = document.getElementById("btnCancelExam");
+      const btnMobileToggleTeacher = document.getElementById("btnMobileToggleTeacher");
+      const mobileDrawerTeacher = document.getElementById("mobileDrawerTeacher");
+
+      btnMobileToggleTeacher.addEventListener("click", () => {
+        mobileDrawerTeacher.classList.toggle("open");
+      });
+
+      btnNewExam.addEventListener("click", () => newExamModal.classList.add("active"));
+      btnCloseExamModal.addEventListener("click", () => newExamModal.classList.remove("active"));
+      btnCancelExam.addEventListener("click", () => newExamModal.classList.remove("active"));
+      newExamModal.addEventListener("click", (e) => {
+        if (e.target === newExamModal) newExamModal.classList.remove("active");
+      });
+
+      document.getElementById("formCreateExam").addEventListener("submit", (e) => {
+        e.preventDefault();
+        alert("¡Evaluación publicada con éxito! El código de examen es: VF-1102");
+        newExamModal.classList.remove("active");
+      });
+    });
+  </script>
+</body>
+</html>

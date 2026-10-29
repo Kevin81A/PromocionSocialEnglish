@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VerbFlow - Portal Estudiantil</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Public+Sans:wght@500;600;700;800&amp;family=JetBrains+Mono:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#2563eb",
+            "primary-dark": "#1d4ed8",
+            "on-primary": "#ffffff",
+            surface: "#ffffff",
+            "surface-tint": "#f8fafc",
+            "surface-container-low": "#f0f7ff",
+            "surface-container-high": "#e2e8f0",
+            "on-surface": "#0f172a",
+            "on-surface-variant": "#475569",
+            "outline-variant": "#e2e8f0",
+            sky: {
+              highlight: "#0284c7",
+              soft: "#e0f2fe"
+            },
+            emerald: {
+              soft: "#dcfce7",
+              accent: "#16a34a"
+            },
+            amber: {
+              soft: "#fef3c7",
+              accent: "#d97706"
+            }
+          },
+          borderRadius: {
+            "DEFAULT": "0.5rem",
+            "lg": "1rem",
+            "xl": "1.5rem",
+            "2xl": "1.25rem",
+            "3xl": "1.75rem",
+            "full": "9999px"
+          },
+          fontFamily: {
+            headline: ["Public Sans", "sans-serif"],
+            display: ["Public Sans", "sans-serif"],
+            body: ["Plus Jakarta Sans", "sans-serif"],
+            label: ["Public Sans", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-surface-tint font-body text-on-surface antialiased min-h-screen flex flex-col selection:bg-sky-highlight selection:text-white">
+<!-- TOP APP BAR / BRAND HEADER -->
+<header class="sticky top-0 z-50 flex items-center justify-between px-6 py-3 w-full bg-surface/95 backdrop-blur-md border-b border-outline-variant shadow-sm transition-all duration-200">
+<div class="max-w-7xl mx-auto w-full flex items-center justify-between gap-4">
+<!-- Brand & School Crest Pill -->
+<div class="flex items-center gap-3">
+<a class="flex items-center gap-2.5 group" href="#">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary to-sky-highlight flex items-center justify-center text-white shadow-md shadow-primary/20 group-hover:scale-105 transition-transform duration-200">
+<span class="material-symbols-outlined text-2xl" data-icon="school">school</span>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-headline text-xl font-bold tracking-tight text-primary">VerbFlow</span>
+<span class="inline-flex items-center justify-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-soft text-amber-accent border border-amber-300">ESTUDIANTE</span>
+</div>
+<p class="font-headline text-[11px] font-medium text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-sky-highlight" data-icon="verified">verified</span>
+              I.E. Promoción Social • Palermo
+            </p>
+</div>
+</a>
+</div>
+<!-- Navigation Pill Cluster (Desktop) -->
+<nav class="hidden lg:flex items-center gap-1.5 bg-surface-tint border border-outline-variant/80 p-1.5 rounded-full shadow-inner">
+<!-- Active: Inicio / Dashboard -->
+<a class="bg-primary text-on-primary rounded-full px-4 py-1.5 text-sm font-semibold flex items-center gap-1.5 shadow-sm transition-all duration-150 active:scale-95" href="#dashboard">
+<span class="material-symbols-outlined text-base" data-icon="dashboard">dashboard</span>
+          Dashboard
+        </a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface rounded-full px-4 py-1.5 text-sm font-medium transition-all duration-150 active:scale-95 flex items-center gap-1.5" href="#temario">
+<span class="material-symbols-outlined text-base" data-icon="menu_book">menu_book</span>
+          Modules
+        </a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface rounded-full px-4 py-1.5 text-sm font-medium transition-all duration-150 active:scale-95 flex items-center gap-1.5" href="#verb-tenses">
+<span class="material-symbols-outlined text-base" data-icon="timeline">timeline</span>
+          Verb Tenses
+        </a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface rounded-full px-4 py-1.5 text-sm font-medium transition-all duration-150 active:scale-95 flex items-center gap-1.5" href="#practica-oral">
+<span class="material-symbols-outlined text-base" data-icon="quiz">quiz</span>
+          Exams
+        </a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface rounded-full px-4 py-1.5 text-sm font-medium transition-all duration-150 active:scale-95 flex items-center gap-1.5" href="#notas">
+<span class="material-symbols-outlined text-base" data-icon="insights">insights</span>
+          Progress
+        </a>
+</nav>
+<!-- Right Action Toolbar: Quick Cheat Sheet, State Toggle & Student Card -->
+<div class="flex items-center gap-2.5">
+<!-- Chuleta de Fórmulas Quick Modal Trigger -->
+<button class="hidden sm:inline-flex items-center gap-1.5 bg-surface border border-outline-variant text-on-surface-variant hover:text-primary hover:border-primary/40 px-3 py-1.5 rounded-full text-xs font-semibold shadow-xs hover:shadow transition-all duration-150 active:scale-95" id="btnCheatSheet" type="button">
+<span class="material-symbols-outlined text-sm text-sky-highlight" data-icon="auto_stories">auto_stories</span>
+<span>Chuleta de Fórmulas</span>
+</button>
+<!-- Mode Toggle Indicator -->
+<button aria-label="Cambiar tema visual" class="inline-flex items-center gap-1 text-on-surface-variant bg-surface hover:bg-surface-container-high border border-outline-variant px-2.5 py-1.5 rounded-full text-xs font-medium transition-colors" type="button">
+<span class="material-symbols-outlined text-base text-amber-500" data-icon="light_mode">light_mode</span>
+<span class="hidden md:inline">Modo Claro</span>
+</button>
+<!-- Notifications -->
+<button aria-label="Notificaciones del docente" class="relative p-2 rounded-full text-on-surface-variant hover:bg-surface-container-high transition-colors" type="button">
+<span class="material-symbols-outlined text-xl" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full ring-2 ring-surface"></span>
+</button>
+<div class="h-6 w-px bg-outline-variant"></div>
+<!-- Student Profile Pill -->
+<div class="flex items-center gap-2 pl-1 pr-3 py-1 bg-surface-container-low border border-outline-variant rounded-full">
+<div class="relative w-8 h-8 rounded-full overflow-hidden ring-2 ring-primary/30">
+<img class="w-full h-full object-cover" data-alt="Photorealistic portrait of a smiling high school teenager student wearing a navy and white school uniform polo, soft classroom bokeh background with bright high key daylight, authentic natural smile, modern educational portal student avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBy3dkiIPJsJ8zi0h9yKJic6fQ0Qm5Bz4D4vd_fBQKRenlnOCN2bWDwSYr8URrl0G1cT7ilbta9-03aeuDiNRslc2F74vUYsx_GHBAAdVfpqBTLfY2bW3i1qGlLKLqKDaz2CsaW6FqXIw7OrmpFhPKxSgPjrNTqpkwmNBkU5Zr6FM9BU6wKKgy-UUTV8_7VdDeL1a3iRBH8G_M36ufZaYmuaK8Pz4aiw6kMOi1c_RuyArklfCdirWzf-Fn1xMnAxhlzB0aSPJ2hpWc"/>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-accent rounded-full ring-1 ring-white"></span>
+</div>
+<div class="text-left hidden sm:block">
+<div class="text-xs font-bold leading-tight text-on-surface">Alex Rivera</div>
+<div class="text-[10px] font-semibold text-primary">Grado 10-A</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- MAIN CANVAS -->
+<main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+<!-- HERO SECTION: Motivational Banner & Live Exam Gate -->
+<section class="rounded-3xl bg-gradient-to-br from-blue-50 via-white to-slate-50 border border-blue-100/80 p-6 md:p-8 shadow-sm relative overflow-hidden">
+<!-- Decorative light waves -->
+<div class="absolute -right-20 -bottom-20 w-80 h-80 bg-sky-soft/40 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute -left-12 -top-12 w-64 h-64 bg-blue-100/40 rounded-full blur-2xl pointer-events-none"></div>
+<div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+<!-- Left: Student Greeting & Progress Motivation -->
+<div class="lg:col-span-7 space-y-4">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100/70 border border-blue-200 text-primary text-xs font-bold uppercase tracking-wider">
+<span class="material-symbols-outlined text-sm" data-icon="waving_hand">waving_hand</span>
+<span>Periodo Académico III • Huila Bilingüe</span>
+</div>
+<h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-on-surface font-headline tracking-tight leading-tight">
+            ¡Hola, Alex! <span class="inline-block hover:rotate-12 transition-transform cursor-default">👋</span>
+</h1>
+<p class="text-base sm:text-lg text-on-surface-variant max-w-2xl font-body leading-relaxed">
+            Domina los tiempos verbales del inglés de forma práctica, fluida y conversacional. Prepara tus evaluaciones tipo ICFES Saber 11° y gana confianza en tus diálogos diarios.
+          </p>
+<!-- Gamified Progress Stats Ribbon -->
+<div class="pt-2 flex flex-wrap items-center gap-2 sm:gap-3">
+<div class="inline-flex items-center gap-2 bg-surface px-3.5 py-2 rounded-xl border border-outline-variant shadow-xs">
+<span class="material-symbols-outlined text-amber-500 text-xl" data-icon="local_fire_department">local_fire_department</span>
+<div class="text-xs">
+<span class="font-extrabold text-on-surface">12 Días</span>
+<span class="text-on-surface-variant ml-1 font-medium">de Racha</span>
+</div>
+</div>
+<div class="inline-flex items-center gap-2 bg-surface px-3.5 py-2 rounded-xl border border-outline-variant shadow-xs">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="bolt">bolt</span>
+<div class="text-xs">
+<span class="font-extrabold text-on-surface">1,840</span>
+<span class="text-on-surface-variant ml-1 font-medium">XP Acumulados</span>
+</div>
+</div>
+<div class="inline-flex items-center gap-2 bg-surface px-3.5 py-2 rounded-xl border border-outline-variant shadow-xs">
+<span class="material-symbols-outlined text-emerald-accent text-xl" data-icon="verified_user">verified_user</span>
+<div class="text-xs">
+<span class="font-extrabold text-on-surface">84%</span>
+<span class="text-on-surface-variant ml-1 font-medium">Aprobación</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Exam Access Key Card -->
+<div class="lg:col-span-5">
+<div class="bg-surface rounded-2xl p-6 border-2 border-primary/20 shadow-lg shadow-blue-500/5 hover:border-primary/40 transition-all">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-blue-50 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-xl" data-icon="schedule">schedule</span>
+</div>
+<h2 class="font-headline font-bold text-base text-on-surface">
+                  ¿Tienes una prueba programada?
+                </h2>
+</div>
+<span class="flex h-2.5 w-2.5 relative">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+</span>
+</div>
+<p class="text-xs text-on-surface-variant mb-4 leading-normal">
+              Ingresa el código suministrado por tu docente de inglés para iniciar el examen evaluativo con cronómetro institucional:
+            </p>
+<form class="space-y-3" onsubmit="event.preventDefault(); alert('Verificando código: ' + document.getElementById('examCodeInput').value);">
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+<span class="material-symbols-outlined text-lg" data-icon="key">key</span>
+</div>
+<input class="w-full pl-10 pr-4 py-3 bg-surface-tint border border-outline-variant rounded-xl font-mono text-base font-bold uppercase tracking-wider text-primary placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" id="examCodeInput" maxlength="8" placeholder="VF-2024" type="text" value="VF-PAL1"/>
+<span class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-xs font-semibold text-emerald-accent">
+                  Válido
+                </span>
+</div>
+<button class="w-full py-3 px-4 bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-blue-800 text-white font-headline font-bold text-sm rounded-xl shadow-md shadow-primary/25 hover:shadow-lg hover:shadow-primary/30 active:scale-[0.98] transition-all duration-150 flex items-center justify-center gap-2 group" type="submit">
+<span>Ingresar al Examen</span>
+<span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform" data-icon="rocket_launch">rocket_launch</span>
+</button>
+</form>
+<div class="mt-3.5 pt-3 border-t border-outline-variant flex items-center justify-between text-[11px] text-on-surface-variant">
+<span class="flex items-center gap-1 text-slate-500">
+<span class="material-symbols-outlined text-sm" data-icon="lock">lock</span> Sesión segura HTTPS
+              </span>
+<a class="text-primary hover:underline font-semibold" href="#">¿Perdiste tu clave?</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION: CORE LEARNING MODULES (3 BENTO FEATURE CARDS) -->
+<section class="space-y-4" id="temario">
+<div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+<div>
+<span class="text-xs font-bold uppercase tracking-wider text-primary font-headline">Rutas de Aprendizaje</span>
+<h2 class="text-2xl font-bold font-headline text-on-surface tracking-tight">Actividades Principales para Hoy</h2>
+</div>
+<span class="text-xs text-on-surface-variant font-medium">Actualizado según plan curricular 10°-11°</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Card 1: Diálogos Situacionales 🎙️ -->
+<div class="bg-surface rounded-2xl border border-outline-variant p-6 hover:shadow-xl hover:border-primary/40 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden">
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<div class="w-12 h-12 rounded-2xl bg-emerald-soft text-emerald-accent flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-2xl" data-icon="mic">mic</span>
+</div>
+<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-soft text-emerald-accent border border-emerald-200">
+                Recomendado
+              </span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-lg text-on-surface group-hover:text-primary transition-colors">
+                Diálogos Situacionales 🎙️
+              </h3>
+<p class="text-xs text-on-surface-variant mt-1.5 leading-relaxed">
+                Habla por el micrófono con personajes en situaciones reales y recibe consejos de pronunciación al instante.
+              </p>
+</div>
+<div class="flex flex-wrap gap-1.5 pt-1">
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold bg-surface-container-low text-on-surface-variant px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-xs text-emerald-accent" data-icon="graphic_eq">graphic_eq</span>
+                Feedback Fonético
+              </span>
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold bg-surface-container-low text-on-surface-variant px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-xs text-amber-accent" data-icon="sports_esports">sports_esports</span>
+                Modo Juego
+              </span>
+</div>
+</div>
+<div class="pt-6 mt-4 border-t border-outline-variant/60">
+<button class="w-full py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold font-headline flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all" type="button">
+<span>Iniciar Conversación</span>
+<span class="material-symbols-outlined text-sm" data-icon="play_arrow">play_arrow</span>
+</button>
+</div>
+</div>
+<!-- Card 2: Explorar los 7 Tiempos Verbales 📚 -->
+<div class="bg-surface rounded-2xl border border-outline-variant p-6 hover:shadow-xl hover:border-primary/40 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden ring-2 ring-primary/20 bg-gradient-to-b from-blue-50/20 to-surface">
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<div class="w-12 h-12 rounded-2xl bg-blue-100 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-2xl" data-icon="menu_book">menu_book</span>
+</div>
+<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-blue-100 text-primary border border-blue-200">
+                Gramática
+              </span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-lg text-on-surface group-hover:text-primary transition-colors">
+                Explorar los 7 Tiempos Verbales 📚
+              </h3>
+<p class="text-xs text-on-surface-variant mt-1.5 leading-relaxed">
+                Líneas de tiempo visuales, fórmulas afirmativas, negativas e interrogativas y audios de ejemplo en contexto.
+              </p>
+</div>
+<div class="flex flex-wrap gap-1.5 pt-1">
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold bg-surface-container-low text-on-surface-variant px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-xs text-primary" data-icon="functions">functions</span>
+                Fórmulas Clave
+              </span>
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold bg-surface-container-low text-on-surface-variant px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-xs text-sky-highlight" data-icon="forum">forum</span>
+                Ejemplos Cotidianos
+              </span>
+</div>
+</div>
+<div class="pt-6 mt-4 border-t border-outline-variant/60">
+<a class="w-full py-2.5 px-4 bg-primary hover:bg-primary-dark text-white rounded-xl text-xs font-bold font-headline flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all" href="#verb-tenses">
+<span>Ver Temario Completo</span>
+<span class="material-symbols-outlined text-sm" data-icon="east">east</span>
+</a>
+</div>
+</div>
+<!-- Card 3: Práctica Rápida ⚡ -->
+<div class="bg-surface rounded-2xl border border-outline-variant p-6 hover:shadow-xl hover:border-primary/40 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden">
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<div class="w-12 h-12 rounded-2xl bg-amber-soft text-amber-accent flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-2xl" data-icon="bolt">bolt</span>
+</div>
+<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-soft text-amber-accent border border-amber-300">
+                Sin Calificación
+              </span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-lg text-on-surface group-hover:text-primary transition-colors">
+                Práctica Rápida ⚡
+              </h3>
+<p class="text-xs text-on-surface-variant mt-1.5 leading-relaxed">
+                Ponte a prueba con ejercicios dinámicos de selección múltiple y completar oraciones sin presión de notas.
+              </p>
+</div>
+<div class="flex flex-wrap gap-1.5 pt-1">
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold bg-surface-container-low text-on-surface-variant px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-xs text-amber-500" data-icon="timer">timer</span>
+                Reto de 5 Minutos
+              </span>
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold bg-surface-container-low text-on-surface-variant px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-xs text-sky-highlight" data-icon="check_circle">check_circle</span>
+                Quiz Rápido
+              </span>
+</div>
+</div>
+<div class="pt-6 mt-4 border-t border-outline-variant/60">
+<button class="w-full py-2.5 px-4 bg-on-surface hover:bg-slate-800 text-white rounded-xl text-xs font-bold font-headline flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all" type="button">
+<span>Practicar Ahora</span>
+<span class="material-symbols-outlined text-sm" data-icon="flash_on">flash_on</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION: 7 CURRICULAR VERB TENSES GRID -->
+<section class="space-y-4 pt-2" id="verb-tenses">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-3 border-b border-outline-variant pb-4">
+<div>
+<div class="flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-wider font-headline">
+<span class="material-symbols-outlined text-base" data-icon="schema">schema</span>
+<span>Malla Curricular Oficial de Secundaria</span>
+</div>
+<h2 class="text-2xl font-bold font-headline text-on-surface tracking-tight mt-0.5">
+            Tiempos Verbales Curriculares (Grados 10° y 11°)
+          </h2>
+<p class="text-xs text-on-surface-variant mt-1">
+            Selecciona cualquier tiempo verbal para ver su estructura sintáctica, pronunciación y ejercicios guiados.
+          </p>
+</div>
+<!-- Filter tabs for quick view -->
+<div class="flex items-center gap-1.5 bg-surface p-1 rounded-xl border border-outline-variant text-xs font-semibold">
+<button class="px-3 py-1.5 bg-primary text-white rounded-lg">Todos (7)</button>
+<button class="px-3 py-1.5 text-on-surface-variant hover:text-on-surface">Continuos</button>
+<button class="px-3 py-1.5 text-on-surface-variant hover:text-on-surface">Simples &amp; Perfecto</button>
+</div>
+</div>
+<!-- 7 Syllabus Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+<!-- 1. Present Continuous -->
+<div class="bg-surface rounded-2xl border-2 border-primary/40 p-5 shadow-md flex flex-col justify-between relative hover:shadow-lg transition-all group">
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-primary text-white">Nivel B1</span>
+<span class="inline-flex items-center gap-1 text-[11px] font-bold text-primary bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                Activo ahora
+              </span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-base text-on-surface group-hover:text-primary transition-colors">
+                Present Continuous
+              </h3>
+<p class="text-xs font-medium text-slate-500">Presente Continuo</p>
+</div>
+<!-- Formula Banner Pill -->
+<div class="bg-surface-tint border border-outline-variant p-2.5 rounded-xl">
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Fórmula de Estructura:</span>
+<code class="font-mono text-xs font-bold text-primary block mt-0.5">am/is/are + verb(-ing)</code>
+</div>
+<p class="text-xs text-on-surface-variant line-clamp-2">
+              Acciones que ocurren exactamente ahora o planes futuros definidos.
+            </p>
+</div>
+<div class="pt-4 mt-3 border-t border-outline-variant flex items-center justify-between">
+<button class="p-2 rounded-lg text-slate-400 hover:text-primary hover:bg-surface-tint transition-colors" title="Escuchar pronunciación ejemplo" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="volume_up">volume_up</span>
+</button>
+<a class="inline-flex items-center gap-1 text-xs font-bold text-primary hover:underline" href="#">
+<span>Practicar</span>
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- 2. Past Continuous -->
+<div class="bg-surface rounded-2xl border border-outline-variant p-5 shadow-xs flex flex-col justify-between relative hover:shadow-lg hover:border-primary/40 transition-all group">
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-700">Nivel B1</span>
+<span class="inline-flex items-center gap-1 text-[11px] font-bold text-amber-accent bg-amber-soft px-2 py-0.5 rounded-full">
+                En progreso
+              </span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-base text-on-surface group-hover:text-primary transition-colors">
+                Past Continuous
+              </h3>
+<p class="text-xs font-medium text-slate-500">Pasado Continuo</p>
+</div>
+<div class="bg-surface-tint border border-outline-variant p-2.5 rounded-xl">
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Fórmula de Estructura:</span>
+<code class="font-mono text-xs font-bold text-primary block mt-0.5">was/were + verb(-ing)</code>
+</div>
+<p class="text-xs text-on-surface-variant line-clamp-2">
+              Acciones interrumpidas o en desarrollo en un momento concreto del pasado.
+            </p>
+</div>
+<div class="pt-4 mt-3 border-t border-outline-variant flex items-center justify-between">
+<button class="p-2 rounded-lg text-slate-400 hover:text-primary hover:bg-surface-tint transition-colors" title="Escuchar pronunciación ejemplo" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="volume_up">volume_up</span>
+</button>
+<a class="inline-flex items-center gap-1 text-xs font-bold text-primary hover:underline" href="#">
+<span>Practicar</span>
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- 3. Future Continuous -->
+<div class="bg-surface rounded-2xl border border-outline-variant p-5 shadow-xs flex flex-col justify-between relative hover:shadow-lg hover:border-primary/40 transition-all group">
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-700">Nivel B1+</span>
+<span class="inline-flex items-center gap-1 text-[11px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">
+                Próximamente
+              </span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-base text-on-surface group-hover:text-primary transition-colors">
+                Future Continuous
+              </h3>
+<p class="text-xs font-medium text-slate-500">Futuro Continuo</p>
+</div>
+<div class="bg-surface-tint border border-outline-variant p-2.5 rounded-xl">
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Fórmula de Estructura:</span>
+<code class="font-mono text-xs font-bold text-primary block mt-0.5">will be + verb(-ing)</code>
+</div>
+<p class="text-xs text-on-surface-variant line-clamp-2">
+              Eventos que estarán en pleno desarrollo durante un momento del futuro.
+            </p>
+</div>
+<div class="pt-4 mt-3 border-t border-outline-variant flex items-center justify-between">
+<button class="p-2 rounded-lg text-slate-400 hover:text-primary hover:bg-surface-tint transition-colors" title="Escuchar pronunciación ejemplo" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="volume_up">volume_up</span>
+</button>
+<a class="inline-flex items-center gap-1 text-xs font-bold text-primary hover:underline" href="#">
+<span>Practicar</span>
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- 4. Present Simple -->
+<div class="bg-surface rounded-2xl border border-outline-variant p-5 shadow-xs flex flex-col justify-between relative hover:shadow-lg hover:border-primary/40 transition-all group">
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-700">Nivel A2</span>
+<span class="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-accent bg-emerald-soft px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-xs" data-icon="check">check</span>
+                Completado
+              </span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-base text-on-surface group-hover:text-primary transition-colors">
+                Present Simple
+              </h3>
+<p class="text-xs font-medium text-slate-500">Presente Simple</p>
+</div>
+<div class="bg-surface-tint border border-outline-variant p-2.5 rounded-xl">
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Fórmula de Estructura:</span>
+<code class="font-mono text-xs font-bold text-primary block mt-0.5">Subject + Verb(s/es)</code>
+</div>
+<p class="text-xs text-on-surface-variant line-clamp-2">
+              Rutinas diarias, hechos científicos universales y verdades generales.
+            </p>
+</div>
+<div class="pt-4 mt-3 border-t border-outline-variant flex items-center justify-between">
+<button class="p-2 rounded-lg text-slate-400 hover:text-primary hover:bg-surface-tint transition-colors" title="Escuchar pronunciación ejemplo" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="volume_up">volume_up</span>
+</button>
+<a class="inline-flex items-center gap-1 text-xs font-bold text-primary hover:underline" href="#">
+<span>Repasar</span>
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- 5. Past Simple -->
+<div class="bg-surface rounded-2xl border border-outline-variant p-5 shadow-xs flex flex-col justify-between relative hover:shadow-lg hover:border-primary/40 transition-all group">
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-700">Nivel B1</span>
+<span class="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-accent bg-emerald-soft px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-xs" data-icon="check">check</span>
+                Completado
+              </span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-base text-on-surface group-hover:text-primary transition-colors">
+                Past Simple
+              </h3>
+<p class="text-xs font-medium text-slate-500">Pasado Simple</p>
+</div>
+<div class="bg-surface-tint border border-outline-variant p-2.5 rounded-xl">
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Fórmula de Estructura:</span>
+<code class="font-mono text-xs font-bold text-primary block mt-0.5">Subject + Verb(-ed/Irreg.)</code>
+</div>
+<p class="text-xs text-on-surface-variant line-clamp-2">
+              Acciones culminadas por completo en un momento específico del pasado.
+            </p>
+</div>
+<div class="pt-4 mt-3 border-t border-outline-variant flex items-center justify-between">
+<button class="p-2 rounded-lg text-slate-400 hover:text-primary hover:bg-surface-tint transition-colors" title="Escuchar pronunciación ejemplo" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="volume_up">volume_up</span>
+</button>
+<a class="inline-flex items-center gap-1 text-xs font-bold text-primary hover:underline" href="#">
+<span>Repasar</span>
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- 6. Future Simple -->
+<div class="bg-surface rounded-2xl border border-outline-variant p-5 shadow-xs flex flex-col justify-between relative hover:shadow-lg hover:border-primary/40 transition-all group">
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-700">Nivel A2+</span>
+<span class="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-accent bg-emerald-soft px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-xs" data-icon="check">check</span>
+                Completado
+              </span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-base text-on-surface group-hover:text-primary transition-colors">
+                Future Simple
+              </h3>
+<p class="text-xs font-medium text-slate-500">Futuro Simple</p>
+</div>
+<div class="bg-surface-tint border border-outline-variant p-2.5 rounded-xl">
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Fórmula de Estructura:</span>
+<code class="font-mono text-xs font-bold text-primary block mt-0.5">will + verb / going to</code>
+</div>
+<p class="text-xs text-on-surface-variant line-clamp-2">
+              Decisiones espontáneas, promesas o predicciones basadas en evidencia.
+            </p>
+</div>
+<div class="pt-4 mt-3 border-t border-outline-variant flex items-center justify-between">
+<button class="p-2 rounded-lg text-slate-400 hover:text-primary hover:bg-surface-tint transition-colors" title="Escuchar pronunciación ejemplo" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="volume_up">volume_up</span>
+</button>
+<a class="inline-flex items-center gap-1 text-xs font-bold text-primary hover:underline" href="#">
+<span>Repasar</span>
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- 7. Present Perfect -->
+<div class="bg-surface rounded-2xl border-2 border-emerald-500/30 p-5 shadow-xs flex flex-col justify-between relative hover:shadow-lg hover:border-emerald-500 transition-all group md:col-span-2 lg:col-span-1">
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">Nivel B1+</span>
+<span class="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-accent bg-emerald-soft px-2 py-0.5 rounded-full">
+                Recomendado
+              </span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-base text-on-surface group-hover:text-primary transition-colors">
+                Present Perfect
+              </h3>
+<p class="text-xs font-medium text-slate-500">Presente Perfecto</p>
+</div>
+<div class="bg-surface-tint border border-outline-variant p-2.5 rounded-xl">
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Fórmula de Estructura:</span>
+<code class="font-mono text-xs font-bold text-emerald-700 block mt-0.5">have/has + past participle</code>
+</div>
+<p class="text-xs text-on-surface-variant line-clamp-2">
+              Experiencias de vida o acciones pasadas con relevancia e impacto directo en el presente.
+            </p>
+</div>
+<div class="pt-4 mt-3 border-t border-outline-variant flex items-center justify-between">
+<button class="p-2 rounded-lg text-slate-400 hover:text-primary hover:bg-surface-tint transition-colors" title="Escuchar pronunciación ejemplo" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="volume_up">volume_up</span>
+</button>
+<a class="inline-flex items-center gap-1 text-xs font-bold text-emerald-600 hover:underline" href="#">
+<span>Practicar</span>
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- CLASSROOM QUICK ANNOUNCEMENT WIDGET -->
+<section class="bg-gradient-to-r from-blue-900 to-indigo-950 rounded-2xl p-6 text-white shadow-md relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center shrink-0 border border-white/20">
+<span class="material-symbols-outlined text-3xl text-amber-300" data-icon="campaign">campaign</span>
+</div>
+<div>
+<span class="text-[11px] font-bold tracking-widest text-sky-200 uppercase">Aviso de Docente Titular</span>
+<h3 class="font-headline font-bold text-lg text-white">Examen Bimestral: Tiempos Continuos vs. Simples</h3>
+<p class="text-xs text-slate-300 max-w-xl mt-0.5">
+            Fecha programada: Este viernes en sala de informática #2. Recuerda traer audífonos personales para el componente de comprensión oral.
+          </p>
+</div>
+</div>
+<div class="shrink-0 flex items-center gap-3">
+<button class="px-4 py-2 rounded-xl bg-white text-on-surface font-headline font-bold text-xs hover:bg-slate-100 transition-colors shadow-sm" type="button">
+          Descargar Guía PDF
+        </button>
+</div>
+</section>
+</main>
+<!-- QUICK CHEAT SHEET MODAL (Vanilla Micro-interaction) -->
+<div class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4" id="cheatSheetModal">
+<div class="bg-surface rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-outline-variant space-y-4">
+<div class="flex items-center justify-between border-b border-outline-variant pb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="menu_book">menu_book</span>
+<h3 class="font-headline font-bold text-lg text-on-surface">Chuleta Rápida de Fórmulas</h3>
+</div>
+<button class="p-1 rounded-lg text-slate-400 hover:text-on-surface hover:bg-surface-tint" id="closeCheatSheet">
+<span class="material-symbols-outlined text-xl" data-icon="close">close</span>
+</button>
+</div>
+<div class="space-y-2 text-xs font-mono max-h-80 overflow-y-auto pr-1">
+<div class="p-2.5 rounded-xl bg-surface-tint border border-outline-variant flex justify-between items-center">
+<span class="font-bold text-slate-700">Pres. Cont:</span>
+<span class="text-primary font-bold">S + am/is/are + V-ing</span>
+</div>
+<div class="p-2.5 rounded-xl bg-surface-tint border border-outline-variant flex justify-between items-center">
+<span class="font-bold text-slate-700">Past Cont:</span>
+<span class="text-primary font-bold">S + was/were + V-ing</span>
+</div>
+<div class="p-2.5 rounded-xl bg-surface-tint border border-outline-variant flex justify-between items-center">
+<span class="font-bold text-slate-700">Fut. Cont:</span>
+<span class="text-primary font-bold">S + will be + V-ing</span>
+</div>
+<div class="p-2.5 rounded-xl bg-surface-tint border border-outline-variant flex justify-between items-center">
+<span class="font-bold text-slate-700">Pres. Simple:</span>
+<span class="text-primary font-bold">S + V(s/es) [Neg: don't/doesn't]</span>
+</div>
+<div class="p-2.5 rounded-xl bg-surface-tint border border-outline-variant flex justify-between items-center">
+<span class="font-bold text-slate-700">Past Simple:</span>
+<span class="text-primary font-bold">S + V-ed / Irreg [Neg: didn't]</span>
+</div>
+<div class="p-2.5 rounded-xl bg-surface-tint border border-outline-variant flex justify-between items-center">
+<span class="font-bold text-slate-700">Pres. Perfect:</span>
+<span class="text-primary font-bold">S + have/has + V-pp</span>
+</div>
+</div>
+<p class="text-[11px] text-on-surface-variant text-center">
+        Uso autorizado para actividades de refuerzo en aula de clase.
+      </p>
+</div>
+</div>
+<!-- INSTITUTIONAL FOOTER -->
+<footer class="w-full bg-surface-container-low border-t border-outline-variant mt-auto">
+<div class="max-w-7xl mx-auto py-8 px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-3 text-center md:text-left">
+<div class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center font-bold text-sm">
+          VF
+        </div>
+<div class="font-body text-xs text-on-surface-variant">
+<span class="font-bold text-on-surface">VerbFlow</span> — Plataforma Educativa de Inglés para la Institución Educativa Promoción Social (Palermo, Huila) • Privacidad protegida bajo la Ley 1581 de 2012
+        </div>
+</div>
+<!-- Institutional Links -->
+<nav class="flex flex-wrap items-center justify-center gap-6 font-body text-xs font-medium">
+<a class="text-on-surface-variant hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded" href="#">Guía Académica</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded" href="#">Plan de Área Inglés</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded" href="#">Mesa de Ayuda Técnica</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded" href="#">Privacy Policy</a>
+</nav>
+</div>
+</footer>
+<!-- Micro-interactions Script -->
+<script>
+    const btnCheatSheet = document.getElementById('btnCheatSheet');
+    const closeCheatSheet = document.getElementById('closeCheatSheet');
+    const cheatSheetModal = document.getElementById('cheatSheetModal');
+
+    if (btnCheatSheet && cheatSheetModal && closeCheatSheet) {
+      btnCheatSheet.addEventListener('click', () => {
+        cheatSheetModal.classList.remove('hidden');
+        cheatSheetModal.classList.add('flex');
+      });
+
+      closeCheatSheet.addEventListener('click', () => {
+        cheatSheetModal.classList.add('hidden');
+        cheatSheetModal.classList.remove('flex');
+      });
+
+      cheatSheetModal.addEventListener('click', (e) => {
+        if (e.target === cheatSheetModal) {
+          cheatSheetModal.classList.add('hidden');
+          cheatSheetModal.classList.remove('flex');
+        }
+      });
+    }
+  </script>
+</body></html>

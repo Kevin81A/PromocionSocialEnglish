@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VerbFlow - Role-Play Conversacional</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary": "#003824",
+            "on-secondary-container": "#c4abff",
+            "on-tertiary-container": "#000703",
+            "primary-fixed-dim": "#c0c1ff",
+            "inverse-surface": "#dfe2f1",
+            "tertiary-container": "#00885d",
+            "on-tertiary-fixed-variant": "#005236",
+            "surface": "#0f131d",
+            "tertiary": "#4edea3",
+            "surface-container": "#1c1f2a",
+            "inverse-primary": "#494bd6",
+            "outline": "#908fa0",
+            "on-secondary-fixed": "#23005c",
+            "secondary-container": "#571bc1",
+            "on-tertiary-fixed": "#002113",
+            "on-primary-container": "#0d0096",
+            "surface-container-highest": "#313540",
+            "on-error-container": "#ffdad6",
+            "outline-variant": "#464554",
+            "on-error": "#690005",
+            "inverse-on-surface": "#2c303b",
+            "on-surface-variant": "#c7c4d7",
+            "primary": "#c0c1ff",
+            "background": "#0f131d",
+            "on-background": "#dfe2f1",
+            "secondary-fixed": "#e9ddff",
+            "surface-dim": "#0f131d",
+            "surface-container-low": "#171b26",
+            "secondary-fixed-dim": "#d0bcff",
+            "on-secondary": "#3c0091",
+            "on-primary": "#1000a9",
+            "on-primary-fixed": "#07006c",
+            "error-container": "#93000a",
+            "tertiary-fixed": "#6ffbbe",
+            "secondary": "#d0bcff",
+            "surface-container-high": "#262a35",
+            "surface-tint": "#c0c1ff",
+            "surface-variant": "#313540",
+            "on-secondary-fixed-variant": "#5516be",
+            "primary-container": "#8083ff",
+            "surface-container-lowest": "#0a0e18",
+            "surface-bright": "#353944",
+            "on-surface": "#dfe2f1",
+            "error": "#ffb4ab",
+            "tertiary-fixed-dim": "#4edea3",
+            "on-primary-fixed-variant": "#2f2ebe",
+            "primary-fixed": "#e1e0ff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "margin-mobile": "1rem",
+            "gutter-mobile": "1rem",
+            "gutter": "1.5rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2.5rem",
+            "margin": "2rem",
+            "space-md": "1rem"
+          },
+          "fontFamily": {
+            "headline-md": ["Outfit"],
+            "headline-lg-mobile": ["Outfit"],
+            "display-hero-mobile": ["Outfit"],
+            "title-md": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "label-md": ["Plus Jakarta Sans"],
+            "headline-lg": ["Outfit"],
+            "formula-token": ["Outfit"],
+            "label-lg": ["Plus Jakarta Sans"],
+            "display-hero": ["Outfit"],
+            "body-md": ["Plus Jakarta Sans"],
+            "headline-sm": ["Outfit"]
+          },
+          "fontSize": {
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "display-hero-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "title-md": ["18px", { "lineHeight": "26px", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "formula-token": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "700" }],
+            "label-lg": ["13px", { "lineHeight": "18px", "letterSpacing": "0.04em", "fontWeight": "700" }],
+            "display-hero": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "800" }],
+            "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-block;
+      text-transform: none;
+      letter-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 15px rgba(239, 68, 68, 0.25); }
+      50% { box-shadow: 0 0 25px rgba(239, 68, 68, 0.55); }
+    }
+    
+    @keyframes micWave {
+      0% { transform: scale(1); opacity: 0.8; }
+      100% { transform: scale(1.6); opacity: 0; }
+    }
+    
+    .wave-ring {
+      animation: micWave 2.2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+    }
+    .wave-ring-delayed {
+      animation: micWave 2.2s cubic-bezier(0, 0.2, 0.8, 1) infinite 0.75s;
+    }
+
+    .tactile-btn-primary {
+      box-shadow: 0 4px 0 #4338ca, 0 10px 20px rgba(99, 102, 241, 0.35);
+      transition: all 0.1s ease-out;
+    }
+    .tactile-btn-primary:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 #4338ca, 0 4px 8px rgba(99, 102, 241, 0.2);
+    }
+
+    .tactile-mic {
+      box-shadow: 0 6px 0 #312e81, 0 15px 30px rgba(99, 102, 241, 0.45);
+      transition: all 0.12s ease-out;
+    }
+    .tactile-mic:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 #312e81, 0 6px 12px rgba(99, 102, 241, 0.3);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen selection:bg-primary-container selection:text-on-primary-container font-body-md antialiased overflow-x-hidden">
+<!-- TOP NAVBAR / HEADER (Global Component) -->
+<header class="sticky top-0 z-50 w-full bg-surface/85 backdrop-blur-xl border-b border-outline-variant/20 shadow-md">
+<div class="max-w-[1280px] mx-auto px-6 h-18 flex items-center justify-between gap-4 py-3">
+<!-- Brand & School Identification -->
+<div class="flex items-center gap-3 shrink-0">
+<div class="flex items-center gap-2 group cursor-pointer">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-secondary-container to-primary flex items-center justify-center shadow-lg shadow-primary-container/20 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<div>
+<span class="font-headline-md text-headline-md font-extrabold tracking-tight text-primary">VerbFlow</span>
+<span class="block text-[10px] font-label-md tracking-wider text-secondary uppercase font-bold">Interactive ESL</span>
+</div>
+</div>
+<div class="h-6 w-px bg-outline-variant/40 mx-1"></div>
+<div class="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high border border-outline-variant/30 text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-[15px] text-tertiary-fixed">school</span>
+<span>I.E. Promoción Social - Palermo</span>
+</div>
+</div>
+<!-- Center: Breadcrumbs & Navigation Modes -->
+<div class="hidden md:flex flex-col items-center gap-1">
+<nav aria-label="Breadcrumb" class="flex items-center gap-1.5 text-on-surface-variant font-label-md text-label-md">
+<span class="hover:text-on-surface transition-colors cursor-pointer">Tiempos Verbales</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="hover:text-on-surface transition-colors cursor-pointer">Past Continuous</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-bold">Role-Play Conversacional</span>
+</nav>
+<div class="flex items-center p-1 rounded-xl bg-surface-container-lowest border border-outline-variant/25">
+<button class="px-3 py-1 rounded-lg text-on-surface-variant font-label-md text-label-md hover:text-on-surface hover:bg-surface-container-high/40 transition-colors">
+            Modo Teoría
+          </button>
+<button class="px-3 py-1 rounded-lg text-on-surface-variant font-label-md text-label-md hover:text-on-surface hover:bg-surface-container-high/40 transition-colors">
+            Práctica Libre
+          </button>
+<button class="px-3.5 py-1 rounded-lg bg-primary-container/20 text-primary-fixed border border-primary/40 font-label-md text-label-md font-bold shadow-sm flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>
+            Diálogo Hablado [Activo]
+          </button>
+</div>
+</div>
+<!-- Right: Helper & Student Profile -->
+<div class="flex items-center gap-3 shrink-0">
+<!-- Quick Grammar Cheat Sheet Pill -->
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-high hover:bg-surface-bright border border-outline-variant/40 text-primary font-label-lg text-label-lg font-bold transition-all shadow-sm group" id="cheatsheet-trigger">
+<span class="material-symbols-outlined text-[18px] text-primary group-hover:rotate-12 transition-transform">menu_book</span>
+<span class="hidden sm:inline">Chuleta de Fórmulas</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">help</span>
+</button>
+<!-- Student Profile Pill -->
+<div class="flex items-center gap-2.5 pl-2 pr-3 py-1 rounded-full bg-surface-container-low border border-outline-variant/30">
+<img class="w-8 h-8 rounded-full object-cover ring-2 ring-primary/40" data-alt="Close up photographic portrait of a smiling teenage high school student named Alex wearing a navy blazer, glowing studio ambient lights in indigo and purple background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCs5Tv3lfWzPSwTqsaRy0j0U80drOq6tLJB7aUZRa61bXp85ioLcv2m5IbyQ_DZR7jHjY4-h1vxzom9Z9mdo8xJsh2ebK3PjJZJ9HCKncNcBvEzgGRfhQ9Hvqe-cevzUKcGq80eblQxfxJccWCy0a4RdiEOgGqO-iU5Lwua4_1uEJs-tLA-aF6LD_v_Vfzsi9KYkNe__UPm7YvfrQnxSXvOpRdoM-FBBiogxVlv9bb6G6BWqxY3FE70WLo5oezuAs5hgsj_4NTqCo4"/>
+<div class="text-left hidden sm:block">
+<div class="flex items-center gap-1">
+<span class="font-label-lg text-label-lg text-on-surface leading-tight font-bold">Alex Rivera</span>
+<span class="text-[10px] px-1 rounded bg-secondary-container/50 text-secondary-fixed font-bold">10°</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-md text-label-md leading-none">
+<span class="material-symbols-outlined text-[13px] text-tertiary" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+<span class="text-tertiary font-bold">1,840 XP</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- MAIN CONTAINER (Max 1280px Grid) -->
+<main class="max-w-[1280px] mx-auto px-6 py-6 space-y-6">
+<!-- 2. SCENARIO & CONTEXT BANNER (HERO) -->
+<section class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-surface-container via-surface-container-low to-surface-container-high border border-outline-variant/30 p-6 md:p-7 shadow-xl">
+<!-- Ambient Backlight -->
+<div class="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-primary-container/10 blur-3xl pointer-events-none"></div>
+<div class="absolute -left-20 -bottom-20 w-80 h-80 rounded-full bg-error/10 blur-3xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+<div class="space-y-3 max-w-3xl">
+<div class="flex flex-wrap items-center gap-2.5">
+<span class="px-2.5 py-0.5 rounded-full bg-secondary-container/40 border border-secondary/30 text-secondary font-label-md text-label-md font-bold uppercase tracking-wider">
+              Misterio Policial
+            </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-error-container/40 border border-error/40 text-error font-label-lg text-label-lg font-bold" style="animation: pulseGlow 2.5s infinite;">
+<span class="material-symbols-outlined text-[16px] animate-bounce">warning</span>
+              Tono Emocional: Sospecha y Urgencia 🚨
+            </span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container-highest border border-outline-variant/30 text-on-surface-variant font-label-md text-label-md font-semibold">
+              Nivel: Intermedio B1
+            </span>
+</div>
+<h1 class="font-headline-lg text-headline-lg font-extrabold text-white tracking-tight">
+            Escenario: El Alibi del Detective
+          </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">psychology_alt</span>
+<span>El detective Martínez te interroga sobre lo que <strong class="text-primary font-bold">estabas haciendo</strong> anoche a las 8:00 PM cuando ocurrió el incidente en el parque. Presenta tu coartada perfecta.</span>
+</p>
+</div>
+<!-- Progress Widget -->
+<div class="shrink-0 w-full md:w-auto p-4 rounded-xl bg-surface-container-lowest/80 border border-outline-variant/30 backdrop-blur-md flex flex-col gap-2 min-w-[240px]">
+<div class="flex items-center justify-between font-label-lg text-label-lg text-on-surface">
+<span class="font-bold flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[16px]">hourglass_top</span> Turno 2 de 4
+            </span>
+<span class="text-tertiary font-bold">91% Precisión</span>
+</div>
+<!-- Track -->
+<div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden p-0.5">
+<div class="bg-gradient-to-r from-primary to-tertiary h-full rounded-full transition-all duration-500" style="width: 50%;"></div>
+</div>
+<div class="flex justify-between text-[11px] font-label-md text-on-surface-variant">
+<span>Inicio</span>
+<span class="text-secondary font-semibold">Resolviendo Coartada</span>
+<span>Veredicto</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. CONVERSATIONAL ROLE-PLAY ARENA -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- LEFT: INTERLOCUTOR TURN CARD (Character / Detective Martínez) -->
+<div class="lg:col-span-6 rounded-2xl bg-surface-container/60 backdrop-blur-md border border-outline-variant/30 p-6 flex flex-col justify-between shadow-lg relative">
+<div class="space-y-5">
+<!-- Interlocutor Header -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3.5">
+<div class="relative">
+<img class="w-14 h-14 rounded-2xl object-cover ring-2 ring-primary/40 shadow-md" data-alt="High contrast atmospheric cinematic portrait of a sharp serious police detective in trench coat with dramatic moody interrogation lighting and cold dark blue tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCaabxXp76YOflF4nP_9TJRJ9ThYaQzZJU2JMOhSONB5lPZM7JzLzdjUWkCQXg-9n3MQ5CUqr1VaYZr9XKRh9HMo8NvMabMSdBGWm-TKoQyhE43HrTU72lpl3KeifWbw76FBR7_AqJe-Cem-ND6TfxxtbMHtWJTMQYRouD65O4t3BujURT49QT2ToKXROAwZwNVZT5xlriO1d-0-JyW5eJKFvv4WNy9gNRsfOMYHZIAqo1l0nsNIVtA_yoQ4DVKBIH6TV5WJrySjs"/>
+<span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-error flex items-center justify-center text-[10px] text-on-error font-bold shadow">
+                  !
+                </span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Detective Martínez</h3>
+<span class="inline-flex items-center gap-1 font-label-md text-label-md text-on-surface-variant font-medium">
+<span class="material-symbols-outlined text-[14px] text-error">search</span>
+                  Humor: Sospechoso e Implacable
+                </span>
+</div>
+</div>
+<!-- Interlocutor Status Badge -->
+<span class="px-3 py-1 rounded-full bg-surface-container-high border border-outline-variant/40 text-on-surface-variant font-label-md text-label-md flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-error animate-ping"></span>
+              Interrogatorio Activo
+            </span>
+</div>
+<!-- Spoken Dialogue Speech Bubble -->
+<div class="relative p-5 rounded-2xl bg-surface-container-low border border-outline-variant/40 shadow-inner">
+<div class="flex items-start justify-between gap-3">
+<span class="font-headline-sm text-headline-sm text-white font-semibold leading-relaxed">
+                “Where were you last night at 8:00 PM, and what were you doing?”
+              </span>
+<button class="shrink-0 text-primary hover:text-white transition-colors" title="Repetir audio original">
+<span class="material-symbols-outlined text-[24px]">volume_up</span>
+</button>
+</div>
+<!-- Translation Expandable Drawer -->
+<div class="mt-4 pt-3 border-t border-outline-variant/20 flex items-center justify-between text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">translate</span>
+<span class="font-body-md text-body-md italic text-on-surface-variant/90">
+                  “¿Dónde estabas anoche a las 8:00 PM y qué estabas haciendo?”
+                </span>
+</div>
+<span class="font-label-md text-label-md text-outline cursor-pointer hover:text-on-surface">Ocultar</span>
+</div>
+</div>
+</div>
+<!-- Audio Speed Controls & Playback -->
+<div class="mt-6 pt-4 border-t border-outline-variant/20 flex flex-wrap items-center justify-between gap-3">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">
+            Velocidad de reproducción:
+          </span>
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface-container-high hover:bg-surface-bright border border-outline-variant/30 text-on-surface font-label-lg text-label-lg font-bold transition-all active:scale-95">
+<span class="material-symbols-outlined text-[18px] text-primary" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+              Escuchar 1.0x
+            </button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface-container-high hover:bg-surface-bright border border-outline-variant/30 text-secondary font-label-lg text-label-lg font-bold transition-all active:scale-95">
+<span class="material-symbols-outlined text-[18px]">slow_motion_video</span>
+              Audio Lento 0.75x
+            </button>
+</div>
+</div>
+</div>
+<!-- RIGHT: STUDENT SPEAKING CHALLENGE CARD -->
+<div class="lg:col-span-6 rounded-2xl bg-surface-container/60 backdrop-blur-md border border-primary/30 p-6 flex flex-col justify-between shadow-lg relative overflow-hidden">
+<!-- Ambient Glowing Indicator -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-2xl pointer-events-none"></div>
+<div class="space-y-4">
+<!-- Student Card Header -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary animate-ping"></div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary-fixed">Tu turno de responder</h3>
+</div>
+<span class="px-3 py-1 rounded-full bg-primary-container/20 border border-primary/40 text-primary-fixed font-label-md text-label-md font-bold">
+              Speaking Challenge
+            </span>
+</div>
+<!-- Communicative Objective -->
+<div class="p-3.5 rounded-xl bg-surface-container-lowest/70 border border-outline-variant/30 flex items-start gap-2.5">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5">flag</span>
+<div class="text-on-surface">
+<span class="font-label-md text-label-md text-secondary block font-bold uppercase">Objetivo Comunicativo</span>
+<p class="font-body-md text-body-md text-on-surface mt-0.5">
+                Dile al detective que estabas viendo televisión con tu familia en la sala.
+              </p>
+</div>
+</div>
+<!-- Formula Token Helper -->
+<div class="p-3 rounded-xl bg-secondary-container/20 border border-secondary/30 space-y-1.5">
+<span class="font-label-md text-label-md text-secondary-fixed block font-bold">
+              Fórmula Gramatical Clave:
+            </span>
+<div class="flex flex-wrap items-center gap-1.5 font-formula-token text-formula-token">
+<span class="px-2.5 py-1 rounded-md bg-primary-container/30 border border-primary text-primary-fixed">Sujeto (I)</span>
+<span class="text-outline-variant">+</span>
+<span class="px-2.5 py-1 rounded-md bg-secondary-container/50 border border-secondary text-secondary-fixed">was / were</span>
+<span class="text-outline-variant">+</span>
+<span class="px-2.5 py-1 rounded-md bg-tertiary-container/30 border border-tertiary text-tertiary-fixed">verbo(-ing)</span>
+<span class="text-outline-variant">+</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container-high border border-outline-variant text-on-surface">complemento</span>
+</div>
+</div>
+<!-- Target Phrase Model Reference -->
+<div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/40">
+<span class="font-label-md text-label-md text-outline block font-semibold">Frase Objetivo Esperada:</span>
+<p class="font-title-md text-title-md text-white font-bold mt-1">
+              “I was watching TV with my family in the living room.”
+            </p>
+</div>
+</div>
+<div class="mt-4 flex items-center justify-between text-on-surface-variant font-label-md text-label-md">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-tertiary">check_circle</span>
+            Verbo auxiliar requerido: <strong class="text-white ml-0.5">was</strong>
+</span>
+<span class="text-primary font-semibold">Gramática: 100% | Fonética: Por validar</span>
+</div>
+</div>
+</section>
+<!-- 4. MICROPHONE & LIVE AUDIO WAVEFORM COMPONENT -->
+<section class="rounded-2xl bg-surface-container-low border border-outline-variant/30 p-8 text-center relative overflow-hidden shadow-2xl">
+<!-- Glow ambient background -->
+<div class="absolute inset-0 bg-gradient-to-b from-primary-container/5 via-transparent to-transparent pointer-events-none"></div>
+<div class="max-w-xl mx-auto flex flex-col items-center space-y-6 relative z-10">
+<!-- Live Status Pill -->
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-error-container/20 border border-error/40 text-error font-label-lg text-label-lg font-bold">
+<span class="w-2.5 h-2.5 rounded-full bg-error animate-ping"></span>
+<span>🎙️ Escuchando tu voz... Habla con claridad</span>
+</div>
+<!-- 3D Tactile Central Microphone with Ripple Rings -->
+<div class="relative flex items-center justify-center my-2">
+<!-- Concentric Ripple Rings -->
+<div class="absolute w-36 h-36 rounded-full border border-primary/30 wave-ring pointer-events-none"></div>
+<div class="absolute w-44 h-44 rounded-full border border-secondary/20 wave-ring-delayed pointer-events-none"></div>
+<!-- The Microphone Button -->
+<button class="tactile-mic relative w-24 h-24 rounded-full bg-gradient-to-br from-primary via-primary-container to-secondary-container flex flex-col items-center justify-center text-white cursor-pointer group focus:outline-none" id="mic-button">
+<span class="material-symbols-outlined text-[40px] text-white group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 1;">
+              mic
+            </span>
+<span class="text-[10px] font-bold tracking-widest uppercase mt-0.5 text-white/90">GRABAR</span>
+</button>
+</div>
+<!-- Audio Frequency Waveform Bars Visualizer -->
+<div class="w-full max-w-md flex items-center justify-center gap-1.5 h-16 px-4 bg-surface-container-lowest/80 rounded-2xl border border-outline-variant/30 backdrop-blur-sm">
+<div class="w-1.5 bg-primary/40 rounded-full h-3 animate-pulse"></div>
+<div class="w-1.5 bg-primary/60 rounded-full h-6 animate-pulse delay-75"></div>
+<div class="w-1.5 bg-primary rounded-full h-10 animate-pulse delay-150"></div>
+<div class="w-1.5 bg-secondary-fixed rounded-full h-14 animate-pulse delay-100"></div>
+<div class="w-1.5 bg-tertiary rounded-full h-8 animate-pulse delay-200"></div>
+<div class="w-1.5 bg-primary rounded-full h-12 animate-pulse"></div>
+<div class="w-1.5 bg-secondary-fixed rounded-full h-9 animate-pulse delay-75"></div>
+<div class="w-1.5 bg-primary rounded-full h-5 animate-pulse delay-150"></div>
+<div class="w-1.5 bg-tertiary rounded-full h-11 animate-pulse delay-300"></div>
+<div class="w-1.5 bg-primary-fixed rounded-full h-14 animate-pulse delay-100"></div>
+<div class="w-1.5 bg-primary rounded-full h-7 animate-pulse"></div>
+<div class="w-1.5 bg-secondary rounded-full h-12 animate-pulse delay-150"></div>
+<div class="w-1.5 bg-primary rounded-full h-8 animate-pulse delay-75"></div>
+<div class="w-1.5 bg-tertiary-fixed rounded-full h-4 animate-pulse"></div>
+</div>
+<!-- Spacebar Hotkey Tooltip -->
+<div class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md">
+<kbd class="px-2.5 py-1 rounded bg-surface-container-high border border-outline-variant/60 text-white font-mono font-bold text-[11px] shadow-sm">
+            Espacio
+          </kbd>
+<span>Presiona y mantén para hablar / suelta para analizar la pronunciación</span>
+</div>
+</div>
+</section>
+<!-- 5. REAL-TIME PHONETIC FEEDBACK & WORD-DIFF CARD -->
+<section class="rounded-2xl bg-surface-container/80 border border-outline-variant/30 p-6 md:p-8 space-y-6 shadow-xl">
+<!-- Section Header -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-outline-variant/20">
+<div>
+<h2 class="font-headline-sm text-headline-sm font-bold text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary">graphic_eq</span>
+            Análisis Fonético en Tiempo Real &amp; Word-Diff
+          </h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Comparativa exacta entre lo detectado por el motor de voz y el patrón fonético nativo.
+          </p>
+</div>
+<div class="flex items-center gap-2 shrink-0">
+<span class="px-3 py-1 rounded-lg bg-surface-container-high font-label-md text-label-md text-on-surface">
+            Precisión de Turno: <strong class="text-tertiary font-bold">90%</strong>
+</span>
+<span class="px-3 py-1 rounded-lg bg-error-container/30 border border-error/30 font-label-md text-label-md text-error font-bold">
+            1 Alerta Fonética
+          </span>
+</div>
+</div>
+<!-- Word-By-Word Diff Visualizer -->
+<div class="space-y-3">
+<span class="font-label-lg text-label-lg text-outline block font-semibold">Transcripción Auditiva Desglosada:</span>
+<div class="flex flex-wrap items-center gap-2.5 p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-inner">
+<!-- Correct: I -->
+<div class="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-tertiary-container/20 border border-tertiary/40 text-tertiary font-formula-token text-formula-token">
+<span class="material-symbols-outlined text-[15px]">check</span>
+<span>I</span>
+</div>
+<!-- Correct: was -->
+<div class="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-tertiary-container/20 border border-tertiary/40 text-tertiary font-formula-token text-formula-token">
+<span class="material-symbols-outlined text-[15px]">check</span>
+<span>was</span>
+</div>
+<!-- FLAGGED MISPRONOUNCED WORD: watching (heard washing) -->
+<div class="relative group cursor-pointer">
+<div class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-error-container/40 border-2 border-error text-error font-formula-token text-formula-token shadow-lg shadow-error/20 ring-2 ring-error/20 animate-pulse">
+<span class="material-symbols-outlined text-[18px]">error</span>
+<span class="font-bold underline decoration-wavy decoration-error">watching</span>
+<span class="text-[11px] px-1.5 py-0.5 rounded bg-error text-on-error font-extrabold uppercase">Alerta</span>
+</div>
+<!-- Tooltip Hover Popover -->
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-surface-bright text-white text-[11px] font-label-md px-2.5 py-1 rounded shadow-lg whitespace-nowrap hidden group-hover:block z-20 border border-outline-variant">
+              Detectado: <span class="text-error font-mono font-bold">"washing"</span> (/ʃ/ vs /tʃ/)
+            </div>
+</div>
+<!-- Correct: TV -->
+<div class="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-tertiary-container/20 border border-tertiary/40 text-tertiary font-formula-token text-formula-token">
+<span class="material-symbols-outlined text-[15px]">check</span>
+<span>TV</span>
+</div>
+<!-- Correct: with -->
+<div class="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-tertiary-container/20 border border-tertiary/40 text-tertiary font-formula-token text-formula-token">
+<span class="material-symbols-outlined text-[15px]">check</span>
+<span>with</span>
+</div>
+<!-- Correct: my -->
+<div class="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-tertiary-container/20 border border-tertiary/40 text-tertiary font-formula-token text-formula-token">
+<span class="material-symbols-outlined text-[15px]">check</span>
+<span>my</span>
+</div>
+<!-- Correct: family -->
+<div class="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-tertiary-container/20 border border-tertiary/40 text-tertiary font-formula-token text-formula-token">
+<span class="material-symbols-outlined text-[15px]">check</span>
+<span>family</span>
+</div>
+<!-- Correct: in -->
+<div class="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-tertiary-container/20 border border-tertiary/40 text-tertiary font-formula-token text-formula-token">
+<span class="material-symbols-outlined text-[15px]">check</span>
+<span>in</span>
+</div>
+<!-- Correct: the -->
+<div class="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-tertiary-container/20 border border-tertiary/40 text-tertiary font-formula-token text-formula-token">
+<span class="material-symbols-outlined text-[15px]">check</span>
+<span>the</span>
+</div>
+<!-- Correct: living -->
+<div class="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-tertiary-container/20 border border-tertiary/40 text-tertiary font-formula-token text-formula-token">
+<span class="material-symbols-outlined text-[15px]">check</span>
+<span>living</span>
+</div>
+<!-- Correct: room -->
+<div class="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-tertiary-container/20 border border-tertiary/40 text-tertiary font-formula-token text-formula-token">
+<span class="material-symbols-outlined text-[15px]">check</span>
+<span>room</span>
+</div>
+</div>
+</div>
+<!-- Pedagogical Phonetic Coach Advice Box -->
+<div class="rounded-xl bg-surface-container-high/70 border border-error/30 p-5 space-y-4">
+<div class="flex items-start gap-3">
+<div class="w-9 h-9 rounded-xl bg-error-container/40 border border-error/50 flex items-center justify-center shrink-0 text-error">
+<span class="material-symbols-outlined text-[22px]">record_voice_over</span>
+</div>
+<div class="space-y-1">
+<h4 class="font-title-md text-title-md font-bold text-white flex items-center gap-2">
+              Tip de Pronunciación: Contraste de Fricativa vs Africada
+            </h4>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+              Pronunciaste <span class="text-error font-bold font-mono">/ʃ/</span> (<em class="text-white">washing</em> = lavando) en lugar de <span class="text-tertiary font-bold font-mono">/tʃ/</span> (<em class="text-white">watching</em> = viendo). En <strong class="text-white">"watching"</strong>, apoya con fuerza la punta de la lengua en el paladar para producir el sonido <strong>ch</strong> fuerte con expulsión explosiva de aire.
+            </p>
+</div>
+</div>
+<!-- IPA Comparison Cards & Audio Difference Preview -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+<!-- IPA Target: Watching -->
+<div class="p-3.5 rounded-xl bg-surface-container-low border border-tertiary/30 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary text-[20px]">check_circle</span>
+<div>
+<span class="font-label-md text-label-md text-outline block">Forma Correcta (Watching)</span>
+<span class="font-title-md text-title-md font-mono text-tertiary font-bold">[/ˈwɒtʃ.ɪŋ/]</span>
+</div>
+</div>
+<button class="w-9 h-9 rounded-lg bg-surface-container-high hover:bg-tertiary hover:text-on-tertiary transition-colors flex items-center justify-center text-tertiary" title="Escuchar pronunciación correcta">
+<span class="material-symbols-outlined text-[20px]">volume_up</span>
+</button>
+</div>
+<!-- IPA Mistake: Washing -->
+<div class="p-3.5 rounded-xl bg-surface-container-low border border-error/30 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-error text-[20px]">cancel</span>
+<div>
+<span class="font-label-md text-label-md text-outline block">Tu Pronunciación Detectada (Washing)</span>
+<span class="font-title-md text-title-md font-mono text-error font-bold">[/ˈwɒʃ.ɪŋ/]</span>
+</div>
+</div>
+<button class="w-9 h-9 rounded-lg bg-surface-container-high hover:bg-error hover:text-on-error transition-colors flex items-center justify-center text-error" title="Escuchar pronunciación detectada">
+<span class="material-symbols-outlined text-[20px]">volume_up</span>
+</button>
+</div>
+</div>
+<!-- Interactive Comparison Button -->
+<div class="pt-2 flex flex-wrap items-center justify-between gap-3">
+<button class="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary-container/20 hover:bg-primary-container/30 border border-primary/40 text-primary-fixed font-label-lg text-label-lg font-bold transition-all shadow-sm">
+<span class="material-symbols-outlined text-[18px]">compare_arrows</span>
+            Escuchar diferencia directa: watching vs washing
+          </button>
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-tertiary">school</span>
+            Consejo del tutor I.E. Promoción Social
+          </span>
+</div>
+</div>
+</section>
+<!-- 6. BOTTOM ACTION BAR (Floating Sticky Component) -->
+<div class="sticky bottom-4 z-40 w-full">
+<div class="rounded-2xl bg-surface-container-high/90 backdrop-blur-xl border border-outline-variant/40 p-4 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+<!-- Left Pedagogical Advice -->
+<div class="flex items-center gap-2.5 text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-secondary text-[22px]">lightbulb</span>
+<span>
+<strong class="text-white">Consejo rápido:</strong> Mantén un ritmo natural y enfatiza el verbo auxiliar <span class="text-primary font-bold">was</span> antes de la acción.
+          </span>
+</div>
+<!-- Right Buttons -->
+<div class="flex items-center gap-3 shrink-0 w-full sm:w-auto justify-end">
+<button class="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-surface-container hover:bg-surface-bright border border-outline-variant/40 text-on-surface font-label-lg text-label-lg font-bold transition-all active:scale-95">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span>
+            Intentar de nuevo 🔄
+          </button>
+<button class="tactile-btn-primary flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-primary-container to-secondary-container text-white font-label-lg text-label-lg font-bold cursor-pointer">
+<span>Aceptar y Siguiente Turno</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Interactive Script for micro-interactions -->
+<script>
+    // Microphone button toggle simulation
+    const micBtn = document.getElementById('mic-button');
+    let isRecording = false;
+
+    if (micBtn) {
+      micBtn.addEventListener('click', () => {
+        isRecording = !isRecording;
+        if (isRecording) {
+          micBtn.classList.add('scale-105', 'ring-4', 'ring-primary');
+        } else {
+          micBtn.classList.remove('scale-105', 'ring-4', 'ring-primary');
+        }
+      });
+    }
+
+    // Spacebar listener for tactile interaction
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' && !e.repeat && e.target === document.body) {
+        e.preventDefault();
+        micBtn?.classList.add('scale-95', 'opacity-90');
+      }
+    });
+
+    window.addEventListener('keyup', (e) => {
+      if (e.code === 'Space' && e.target === document.body) {
+        e.preventDefault();
+        micBtn?.classList.remove('scale-95', 'opacity-90');
+      }
+    });
+  </script>
+</body></html>

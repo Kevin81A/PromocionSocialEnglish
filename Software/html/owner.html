@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+  <title>VerbFlow - Panel del Administrador (Owner TheKeas)</title>
+  
+  <!-- Tipografías Institucionales Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Public+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+  <!-- Estilos Institucionales (Campus Blue & 100% Responsivo) -->
+  <link rel="stylesheet" href="../css/styles.css"/>
+</head>
+<body>
+
+  <!-- BARRA DE NAVEGACIÓN INSTITUCIONAL -->
+  <header class="vf-header">
+    <div class="vf-container vf-header-inner">
+      <div class="vf-brand">
+        <a href="index.html" class="vf-brand">
+          <div class="vf-brand-logo" style="background: linear-gradient(135deg, #1e3a8a, #2563eb);">
+            <span class="material-symbols-outlined">shield</span>
+          </div>
+          <div>
+            <div style="display: flex; align-items: center; gap: 0.4rem;">
+              <span class="vf-brand-title">VerbFlow Admin</span>
+              <span class="vf-badge vf-badge-owner">Owner</span>
+            </div>
+            <p class="vf-brand-subtitle">Auditoría Institucional • Palermo</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Navegación Admin Escritorio -->
+      <nav class="vf-nav-cluster">
+        <a href="#solicitudes" class="vf-nav-link active">
+          <span class="material-symbols-outlined" style="font-size: 1.1rem;">how_to_reg</span>
+          <span>Aprobaciones</span>
+        </a>
+        <a href="#auditoria" class="vf-nav-link">
+          <span class="material-symbols-outlined" style="font-size: 1.1rem;">security</span>
+          <span>Auditoría Ley 1581</span>
+        </a>
+      </nav>
+
+      <!-- Barra de Acciones y Usuario -->
+      <div class="vf-header-actions">
+        
+        <!-- Botón Menú Móvil -->
+        <button type="button" class="vf-mobile-nav-toggle" id="btnMobileToggleOwner" aria-label="Abrir menú">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+
+        <!-- Conmutador de Tema (☀️ / 🌙) -->
+        <button type="button" class="vf-theme-toggle" data-action="toggle-theme" title="Alternar entre modo claro y modo oscuro">
+          <span class="material-symbols-outlined">dark_mode</span>
+          <span class="vf-theme-label">Modo Oscuro</span>
+        </button>
+
+        <!-- Perfil Owner -->
+        <div class="vf-profile-pill">
+          <div class="vf-avatar-circle" style="background: #1e3a8a; color: #ffffff;">TK</div>
+          <div class="vf-profile-text" style="text-align: left;">
+            <div style="font-size: 0.75rem; font-weight: 700; line-height: 1.1;">thekeas</div>
+            <div style="font-size: 0.65rem; color: var(--sky-brand); font-weight: 600;">SuperAdmin</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Menú Móvil Drawer -->
+    <div class="vf-mobile-drawer" id="mobileDrawerOwner">
+      <a href="#solicitudes" class="vf-nav-link active">
+        <span class="material-symbols-outlined">how_to_reg</span>
+        <span>Aprobaciones Docentes</span>
+      </a>
+      <a href="#auditoria" class="vf-nav-link">
+        <span class="material-symbols-outlined">security</span>
+        <span>Auditoría de Seguridad</span>
+      </a>
+      <a href="index.html" class="vf-nav-link">
+        <span class="material-symbols-outlined">school</span>
+        <span>Portal Estudiantil</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="vf-container" style="padding-top: 1.5rem; padding-bottom: 3.5rem; flex: 1;">
+    
+    <!-- ENCABEZADO -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
+      <div>
+        <h1 class="font-headline" style="font-size: clamp(1.4rem, 3vw, 1.85rem); font-weight: 800; color: var(--text-main);">
+          Control Maestro del Sistema (Owner)
+        </h1>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">
+          Garantía de privacidad (Ley 1581 & Ley 1098), autorización de docentes y supervisión de seguridad anti-fraude.
+        </p>
+      </div>
+
+      <div>
+        <button type="button" class="vf-btn vf-btn-secondary" style="font-size: 0.8rem; padding: 0.4rem 0.75rem;" onclick="alert('Verificando conexiones Supabase...');">
+          <span class="material-symbols-outlined text-success" style="font-size: 1rem;">check_circle</span>
+          <span>PostgreSQL Activo</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- TARJETAS DE ESTADO GLOBAL -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.75rem;">
+      <div class="vf-card" style="padding: 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+          <span style="font-size: 0.725rem; font-weight: 700; color: var(--text-subtle); text-transform: uppercase;">Docentes Aprobados</span>
+          <span class="material-symbols-outlined text-primary">school</span>
+        </div>
+        <div style="font-size: 1.65rem; font-weight: 800; font-family: 'Public Sans', sans-serif;">4 Docentes</div>
+        <div style="font-size: 0.725rem; color: var(--primary); font-weight: 600; margin-top: 0.15rem;">● 1 Solicitud Pendiente</div>
+      </div>
+
+      <div class="vf-card" style="padding: 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+          <span style="font-size: 0.725rem; font-weight: 700; color: var(--text-subtle); text-transform: uppercase;">Estudiantes Registrados</span>
+          <span class="material-symbols-outlined text-sky-brand">groups</span>
+        </div>
+        <div style="font-size: 1.65rem; font-weight: 800; font-family: 'Public Sans', sans-serif;">142 Alumnos</div>
+        <div style="font-size: 0.725rem; color: var(--success); font-weight: 600; margin-top: 0.15rem;">● 100% Consentimiento Legal</div>
+      </div>
+
+      <div class="vf-card" style="padding: 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+          <span style="font-size: 0.725rem; font-weight: 700; color: var(--text-subtle); text-transform: uppercase;">Banco de Preguntas</span>
+          <span class="material-symbols-outlined text-success">quiz</span>
+        </div>
+        <div style="font-size: 1.65rem; font-weight: 800; font-family: 'Public Sans', sans-serif;">1.050 Preguntas</div>
+        <div style="font-size: 0.725rem; color: var(--text-muted); margin-top: 0.15rem;">7 Tiempos x 150 (Easy/Med/Hard)</div>
+      </div>
+
+      <div class="vf-card" style="padding: 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+          <span style="font-size: 0.725rem; font-weight: 700; color: var(--text-subtle); text-transform: uppercase;">Grabaciones de Audio</span>
+          <span class="material-symbols-outlined text-success">mic_off</span>
+        </div>
+        <div style="font-size: 1.65rem; font-weight: 800; font-family: 'Public Sans', sans-serif; color: var(--success);">0 Bytes (0)</div>
+        <div style="font-size: 0.725rem; color: var(--success); font-weight: 600; margin-top: 0.15rem;">Cero retención biométrica</div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN: SOLICITUDES DE APROBACIÓN DE DOCENTES -->
+    <section class="vf-card" id="solicitudes" style="margin-bottom: 2rem; padding: 1.25rem;">
+      <div style="margin-bottom: 1rem;">
+        <h2 class="font-headline" style="font-size: 1.25rem; font-weight: 800; color: var(--text-main);">
+          Solicitudes de Registro Docente (Aprobación Requerida)
+        </h2>
+        <p style="font-size: 0.775rem; color: var(--text-muted);">
+          Ningún profesor puede acceder al sistema ni gestionar notas sin la aprobación explícita de @thekeas.
+        </p>
+      </div>
+
+      <div class="vf-table-container">
+        <table class="vf-table">
+          <thead>
+            <tr>
+              <th>Candidato Docente</th>
+              <th>Correo Institucional</th>
+              <th>Justificación</th>
+              <th>Fecha</th>
+              <th>Estado</th>
+              <th>Decisión</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong>Lic. Carlos Eduardo Rojas</strong><br/>
+                <span style="font-size: 0.725rem; color: var(--text-subtle);">@carlos_rojas</span>
+              </td>
+              <td>carlos.rojas@promocionsocial.edu.co</td>
+              <td>Docente de Inglés de Grados 10-01 y 10-02. Asignación académica 2026.</td>
+              <td>28/10/2026</td>
+              <td><span class="vf-badge vf-badge-student">Pendiente</span></td>
+              <td>
+                <div style="display: flex; gap: 0.3rem;">
+                  <button type="button" class="vf-btn vf-btn-primary" style="padding: 0.25rem 0.55rem; font-size: 0.725rem;" onclick="alert('Docente aprobado satisfactoriamente.'); this.closest('tr').remove();">
+                    Aprobar
+                  </button>
+                  <button type="button" class="vf-btn vf-btn-secondary" style="padding: 0.25rem 0.55rem; font-size: 0.725rem; color: var(--danger);" onclick="alert('Solicitud rechazada.'); this.closest('tr').remove();">
+                    Rechazar
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Lic. Martha Lucía Méndez</strong><br/>
+                <span style="font-size: 0.725rem; color: var(--text-subtle);">@martha_mendez</span>
+              </td>
+              <td>martha.mendez@promocionsocial.edu.co</td>
+              <td>Docente titular de Inglés 11-01 y 11-02. Coordinación de área.</td>
+              <td>15/10/2026</td>
+              <td><span class="vf-badge vf-badge-success">Aprobada</span></td>
+              <td>
+                <span style="font-size: 0.725rem; color: var(--text-subtle);">Aprobado por thekeas</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: REGISTRO DE AUDITORÍA Y TRAZABILIDAD LEY 1581 -->
+    <section class="vf-card" id="auditoria" style="padding: 1.25rem;">
+      <div style="margin-bottom: 1rem;">
+        <h2 class="font-headline" style="font-size: 1.25rem; font-weight: 800; color: var(--text-main);">
+          Registro Inmutable de Auditoría (Ley 1581 & RNF-04)
+        </h2>
+        <p style="font-size: 0.775rem; color: var(--text-muted);">
+          Trazabilidad de consentimiento firmado, acceso y eventos de seguridad durante exámenes.
+        </p>
+      </div>
+
+      <div class="vf-table-container">
+        <table class="vf-table">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>Usuario</th>
+              <th>Acción Realizada</th>
+              <th>Entidad / Contexto</th>
+              <th>Dirección IP</th>
+              <th>Estado Legal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="font-mono" style="font-size: 0.725rem;">29/10/2026 10:14:22</td>
+              <td>@alex_rivera (Estudiante)</td>
+              <td>CONSENTIMIENTO_1581_REGISTRADO</td>
+              <td>consentimiento (v1.0 Oficial)</td>
+              <td class="font-mono" style="font-size: 0.725rem;">181.129.45.12</td>
+              <td><span class="vf-badge vf-badge-success" style="font-size: 0.65rem;">Conforme</span></td>
+            </tr>
+            <tr>
+              <td class="font-mono" style="font-size: 0.725rem;">29/10/2026 10:18:05</td>
+              <td>@strujillo (Estudiante)</td>
+              <td>EXAM_SECURITY_ALERT</td>
+              <td>cambio_pestana (Examen VF-1102)</td>
+              <td class="font-mono" style="font-size: 0.725rem;">190.25.88.201</td>
+              <td><span class="vf-badge vf-badge-student" style="font-size: 0.65rem;">Advertencia</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- SCRIPTS -->
+  <script src="../js/theme-manager.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const btnMobileToggleOwner = document.getElementById("btnMobileToggleOwner");
+      const mobileDrawerOwner = document.getElementById("mobileDrawerOwner");
+      btnMobileToggleOwner.addEventListener("click", () => {
+        mobileDrawerOwner.classList.toggle("open");
+      });
+    });
+  </script>
+</body>
+</html>

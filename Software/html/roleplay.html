@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+  <title>VerbFlow - Simulador Conversacional & Reconocimiento de Voz</title>
+  
+  <!-- Tipografías Institucionales Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Public+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+  <!-- Estilos Institucionales (Campus Blue & 100% Responsivo) -->
+  <link rel="stylesheet" href="../css/styles.css"/>
+
+  <style>
+    .vf-audio-dock {
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-md);
+      margin-top: 1.25rem;
+      width: 100%;
+    }
+
+    .vf-waveform-bar {
+      width: 4px;
+      height: 12px;
+      background: var(--primary);
+      border-radius: 9999px;
+      display: inline-block;
+      transition: height 0.15s ease;
+    }
+
+    .vf-waveform-bar.active {
+      animation: wave-anim 0.6s infinite ease-in-out alternate;
+    }
+
+    @keyframes wave-anim {
+      0% { height: 6px; }
+      100% { height: 26px; background: var(--sky-brand); }
+    }
+
+    .vf-score-dial {
+      font-size: clamp(1.8rem, 4vw, 2.25rem);
+      font-weight: 800;
+      font-family: 'Public Sans', sans-serif;
+      line-height: 1;
+    }
+
+    .vf-tip-card {
+      background: var(--sky-light);
+      border: 1px solid var(--sky-border);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 0.9rem;
+      font-size: 0.85rem;
+      color: var(--text-main);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      margin-top: 0.75rem;
+    }
+
+    .vf-controls-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1.25rem;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 600px) {
+      .vf-controls-row {
+        justify-content: center;
+      }
+      .vf-controls-row .vf-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA DE NAVEGACIÓN INSTITUCIONAL -->
+  <header class="vf-header">
+    <div class="vf-container vf-header-inner">
+      <div class="vf-brand">
+        <a href="index.html" class="vf-brand">
+          <div class="vf-brand-logo">
+            <span class="material-symbols-outlined">record_voice_over</span>
+          </div>
+          <div>
+            <div style="display: flex; align-items: center; gap: 0.4rem;">
+              <span class="vf-brand-title">VerbFlow</span>
+              <span class="vf-badge vf-badge-student">Role-Play Oral</span>
+            </div>
+            <p class="vf-brand-subtitle">I.E. Promoción Social • Palermo</p>
+          </div>
+        </a>
+      </div>
+
+      <div class="vf-header-actions" style="flex-wrap: wrap;">
+        <!-- Selector de Escenario -->
+        <select id="scenarioSelector" class="vf-btn vf-btn-secondary" style="padding: 0.35rem 0.65rem; font-size: 0.775rem; border-radius: var(--radius-full); max-width: 220px;">
+          <!-- Inyectado dinámicamente -->
+        </select>
+
+        <!-- Botón Volver al Dashboard -->
+        <a href="index.html" class="vf-btn vf-btn-secondary" style="border-radius: var(--radius-full); padding: 0.35rem 0.75rem; font-size: 0.775rem;">
+          <span class="material-symbols-outlined" style="font-size: 1rem;">arrow_back</span>
+          <span class="vf-btn-text-responsive">Portal</span>
+        </a>
+
+        <!-- Conmutador de Tema (☀️ / 🌙) -->
+        <button type="button" class="vf-theme-toggle" data-action="toggle-theme" title="Alternar entre modo claro y modo oscuro">
+          <span class="material-symbols-outlined">dark_mode</span>
+          <span class="vf-theme-label">Modo Oscuro</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="vf-container" style="padding-top: 1.25rem; padding-bottom: 3.5rem; flex: 1;">
+    
+    <!-- BANNER DE CONTEXTO SITUACIONAL -->
+    <div class="vf-banner-roleplay" id="scenarioHeader">
+      <div class="vf-banner-content">
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem; flex-wrap: wrap;">
+          <span class="vf-badge vf-badge-owner" id="scenarioBadgeCode">ESC-01</span>
+          <span class="vf-badge vf-badge-student" id="scenarioTenseTopic">Past Continuous</span>
+          <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-subtle);" id="scenarioLevel">Nivel A2 - B1</span>
+        </div>
+        <h1 class="font-headline" style="font-size: clamp(1.3rem, 3vw, 1.7rem); font-weight: 800; color: var(--primary); margin-bottom: 0.35rem;" id="scenarioTitle">
+          The Detective's Alibi
+        </h1>
+        <p style="font-size: clamp(0.825rem, 1.8vw, 0.9rem); color: var(--text-muted); line-height: 1.45;" id="scenarioContext">
+          Misterio en el colegio: El trofeo de química del laboratorio desapareció ayer a las 7:30 PM. El Oficial Jenkins está interrogando a los estudiantes de 11° para verificar sus coartadas.
+        </p>
+      </div>
+
+      <!-- Tarjeta de Emoción e Interlocutor -->
+      <div class="vf-card vf-banner-card" style="padding: 0.85rem 1rem; text-align: center; background: var(--bg-surface); align-self: center;">
+        <div style="font-size: 2.2rem; line-height: 1; margin-bottom: 0.25rem;" id="scenarioBotAvatar">👮‍♂️</div>
+        <div style="font-weight: 700; font-size: 0.9rem;" id="scenarioBotName">Detective Jenkins</div>
+        <div style="font-size: 0.725rem; color: var(--text-subtle); margin-top: 0.15rem;" id="scenarioEmotion">Misterioso / Inquisitivo</div>
+      </div>
+    </div>
+
+    <!-- CUADÍCULA PRINCIPAL: CHAT DE DIÁLOGOS + CONSOLA DE VOZ (100% RESPONSIVA) -->
+    <div class="vf-roleplay-grid">
+      
+      <!-- COLUMNA IZQUIERDA: FLUJO DE DIÁLOGO Y TURNO ACTIVO -->
+      <section style="min-width: 0; width: 100%;">
+        
+        <!-- Flujo histórico de conversación -->
+        <div class="vf-dialogue-stream" id="dialogueStream">
+          <!-- Inyectado dinámicamente -->
+        </div>
+
+        <!-- CABINA DEL TURNO ACTIVO DEL ESTUDIANTE -->
+        <div class="vf-audio-dock" id="activeTurnDock">
+          
+          <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 0.65rem; margin-bottom: 0.85rem; flex-wrap: wrap; gap: 0.4rem;">
+            <div style="display: flex; align-items: center; gap: 0.4rem;">
+              <span class="material-symbols-outlined text-primary" style="font-size: 1.3rem;">mic</span>
+              <span style="font-weight: 700; font-size: 0.925rem;">Tu Turno de Responder (Speaking Practice)</span>
+            </div>
+            <span class="vf-badge vf-badge-success" id="turnProgressBadge">Turno 2 de 6</span>
+          </div>
+
+          <!-- Frase Modelo a Pronunciar en Inglés -->
+          <div style="margin-bottom: 0.85rem;">
+            <div style="font-size: 0.725rem; font-weight: 700; color: var(--text-subtle); text-transform: uppercase; margin-bottom: 0.2rem;">
+              Objetivo en Inglés:
+            </div>
+            <div id="targetSentenceEn" style="font-size: clamp(1.1rem, 2.5vw, 1.35rem); font-weight: 700; color: var(--text-main); font-family: 'Public Sans', sans-serif;">
+              I was doing my chemistry homework at home.
+            </div>
+            <div id="targetSentenceEs" style="font-size: 0.85rem; color: var(--text-muted); font-style: italic; margin-top: 0.15rem;">
+              Estaba haciendo mi tarea de química en casa.
+            </div>
+          </div>
+
+          <!-- Retroalimentación Fonética y Word-Diff (Pintado Verde/Rojo) -->
+          <div style="background: var(--bg-app); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 0.85rem; margin-bottom: 0.85rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem; flex-wrap: wrap; gap: 0.3rem;">
+              <span style="font-size: 0.725rem; font-weight: 700; color: var(--text-subtle); text-transform: uppercase;">
+                Lo que el micrófono captó (Word-Diff Matcher):
+              </span>
+              <span id="transcriptionStatus" style="font-size: 0.725rem; font-weight: 600; color: var(--primary);">
+                Listo para escuchar
+              </span>
+            </div>
+            <div id="wordDiffContainer" style="font-size: 1.05rem; min-height: 2rem; display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center;">
+              <span class="word-pending">Presiona el botón de micrófono y pronuncia la frase en voz alta...</span>
+            </div>
+          </div>
+
+          <!-- Pista Fonética en Español -->
+          <div class="vf-tip-card" id="phoneticTipCard">
+            <span class="material-symbols-outlined" style="color: var(--sky-brand); font-size: 1.2rem; flex-shrink: 0;">lightbulb</span>
+            <div>
+              <strong style="font-size: 0.8rem; color: var(--sky-brand);">Consejo de Pronunciación:</strong>
+              <p id="phoneticTipText" style="margin-top: 0.1rem; font-size: 0.825rem; color: var(--text-muted); line-height: 1.4;">
+                'Chemistry' se pronuncia con sonido /k/ al inicio (/ˈkem.ɪ.stri/), nunca con /ch/. 'Was doing' suena suave: /wəz ˈduː.ɪŋ/.
+              </p>
+            </div>
+          </div>
+
+          <!-- BOTONES DE ACCIÓN DE VOZ -->
+          <div class="vf-controls-row">
+            
+            <!-- Botón Escuchar Modelo Nativo -->
+            <button type="button" class="vf-btn vf-btn-secondary" id="btnListenModel" title="Escuchar pronunciación correcta">
+              <span class="material-symbols-outlined">volume_up</span>
+              <span>Escuchar Modelo</span>
+            </button>
+
+            <!-- Botón Central de Micrófono -->
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3rem;">
+              <button type="button" class="vf-mic-btn" id="btnRecordMic" title="Comenzar a hablar">
+                <span class="material-symbols-outlined">mic</span>
+              </button>
+              <!-- Barras de onda de voz animada -->
+              <div id="waveformIndicator" style="display: flex; gap: 3px; align-items: center; height: 16px;">
+                <span class="vf-waveform-bar"></span>
+                <span class="vf-waveform-bar"></span>
+                <span class="vf-waveform-bar"></span>
+                <span class="vf-waveform-bar"></span>
+                <span class="vf-waveform-bar"></span>
+              </div>
+            </div>
+
+            <!-- Botón Siguiente Turno -->
+            <button type="button" class="vf-btn vf-btn-primary" id="btnNextTurn" style="display: none;">
+              <span>Siguiente Turno</span>
+              <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+
+            <!-- Botón de Simulación para Navegadores sin Micrófono -->
+            <button type="button" class="vf-btn vf-btn-sky" id="btnSimulateVoice" style="display: none;" title="Prueba rápida">
+              <span class="material-symbols-outlined">smart_toy</span>
+              <span>Simular Voz</span>
+            </button>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- COLUMNA DERECHA: NOTA INSTITUCIONAL (1.00 A 5.00) Y AUDITORÍA LEY 1581 -->
+      <aside style="display: flex; flex-direction: column; gap: 1rem; min-width: 0;">
+        
+        <!-- Tarjeta de Calificación del Turno Actual -->
+        <div class="vf-card" style="text-align: center;">
+          <div style="font-size: 0.775rem; font-weight: 700; color: var(--text-subtle); text-transform: uppercase;">
+            Nota del Turno Actual
+          </div>
+          <div style="margin: 0.5rem 0;">
+            <span class="vf-score-dial text-primary" id="currentScoreDisplay">--</span>
+            <span style="font-size: 1rem; color: var(--text-subtle); font-weight: 600;"> / 5.00</span>
+          </div>
+          <div id="scoreStatusBadge" class="vf-badge" style="background: var(--border-color); color: var(--text-subtle);">
+            Sin Evaluar
+          </div>
+          <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem;">
+            Escala oficial colombiana: 1.00 a 5.00.<br/>
+            <strong>Nota mínima aprobatoria: 3.00</strong>
+          </p>
+        </div>
+
+        <!-- Promedio Acumulado de la Conversación -->
+        <div class="vf-card">
+          <h3 class="font-headline" style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.65rem; display: flex; align-items: center; gap: 0.35rem;">
+            <span class="material-symbols-outlined text-primary" style="font-size: 1.2rem;">insights</span>
+            Desempeño Comunicativo
+          </h3>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.45rem; font-size: 0.825rem;">
+            <span style="color: var(--text-muted);">Precisión Fonética:</span>
+            <strong id="avgAccuracyText" class="font-mono">0%</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.45rem; font-size: 0.825rem;">
+            <span style="color: var(--text-muted);">Turnos Completados:</span>
+            <strong id="turnsCompletedText" class="font-mono">0 / 0</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 0.45rem; border-top: 1px solid var(--border-color); font-size: 0.9rem;">
+            <span style="font-weight: 700;">Promedio Global:</span>
+            <strong id="globalScoreText" class="font-mono" style="color: var(--primary); font-size: 1.15rem;">--</strong>
+          </div>
+        </div>
+
+        <!-- Cláusula de Privacidad y Cero Almacenamiento Biométrico -->
+        <div class="vf-card" style="background: var(--bg-app); border-style: dashed; padding: 0.85rem;">
+          <div style="display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.3rem;">
+            <span class="material-symbols-outlined" style="color: var(--success); font-size: 1.1rem;">security</span>
+            <span style="font-size: 0.775rem; font-weight: 700; color: var(--success);">Privacidad Garantizada</span>
+          </div>
+          <p style="font-size: 0.725rem; color: var(--text-muted); line-height: 1.35;">
+            Conforme a la <strong>Ley 1581 de 2012</strong> y <strong>Ley 1098 de 2006</strong> (Menores de Edad), el audio se procesa <em>localmente</em> en tu dispositivo. <strong>No almacenamos grabaciones de voz en servidores externos.</strong>
+          </p>
+        </div>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+  <!-- SCRIPTS MODULARES -->
+  <script src="../data/scenarios-data.js"></script>
+  <script src="../js/speech-engine.js"></script>
+  <script src="../js/roleplay-engine.js"></script>
+  <script src="../js/theme-manager.js"></script>
+
+  <!-- LÓGICA DE CONTROL DE LA PÁGINA -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const scenarioSelector = document.getElementById("scenarioSelector");
+      const scenarioBadgeCode = document.getElementById("scenarioBadgeCode");
+      const scenarioTenseTopic = document.getElementById("scenarioTenseTopic");
+      const scenarioLevel = document.getElementById("scenarioLevel");
+      const scenarioTitle = document.getElementById("scenarioTitle");
+      const scenarioContext = document.getElementById("scenarioContext");
+      const scenarioBotAvatar = document.getElementById("scenarioBotAvatar");
+      const scenarioBotName = document.getElementById("scenarioBotName");
+      const scenarioEmotion = document.getElementById("scenarioEmotion");
+      
+      const dialogueStream = document.getElementById("dialogueStream");
+      const targetSentenceEn = document.getElementById("targetSentenceEn");
+      const targetSentenceEs = document.getElementById("targetSentenceEs");
+      const wordDiffContainer = document.getElementById("wordDiffContainer");
+      const phoneticTipText = document.getElementById("phoneticTipText");
+      const turnProgressBadge = document.getElementById("turnProgressBadge");
+      const transcriptionStatus = document.getElementById("transcriptionStatus");
+
+      const btnListenModel = document.getElementById("btnListenModel");
+      const btnRecordMic = document.getElementById("btnRecordMic");
+      const btnNextTurn = document.getElementById("btnNextTurn");
+      const btnSimulateVoice = document.getElementById("btnSimulateVoice");
+      const waveformBars = document.querySelectorAll(".vf-waveform-bar");
+
+      const currentScoreDisplay = document.getElementById("currentScoreDisplay");
+      const scoreStatusBadge = document.getElementById("scoreStatusBadge");
+      const avgAccuracyText = document.getElementById("avgAccuracyText");
+      const turnsCompletedText = document.getElementById("turnsCompletedText");
+      const globalScoreText = document.getElementById("globalScoreText");
+
+      const scenarios = window.SCENARIOS_DATA || [];
+      scenarioSelector.innerHTML = scenarios.map(s => `
+        <option value="${s.id}">${s.code} - ${s.title}</option>
+      `).join("");
+
+      RoleplayEngine.setListeners({
+        onScenarioLoaded: (scenario) => {
+          scenarioBadgeCode.textContent = scenario.code;
+          scenarioTenseTopic.textContent = scenario.topic;
+          scenarioLevel.textContent = `Nivel ${scenario.level}`;
+          scenarioTitle.textContent = scenario.title;
+          scenarioContext.textContent = scenario.context;
+          scenarioBotAvatar.textContent = scenario.avatarBot;
+          scenarioBotName.textContent = scenario.botName;
+          scenarioEmotion.textContent = scenario.emotion;
+          
+          dialogueStream.innerHTML = "";
+          btnNextTurn.style.display = "none";
+          resetScoreIndicators();
+        },
+
+        onTurnChanged: (turn, index, total) => {
+          turnProgressBadge.textContent = `Turno ${index + 1} de ${total}`;
+          turnsCompletedText.textContent = `${index} / ${total}`;
+
+          if (turn.speaker === "bot") {
+            appendBubble("bot", scenarioBotAvatar.textContent, scenarioBotName.textContent, turn.textEn, turn.textEs);
+            targetSentenceEn.textContent = "El bot está hablando...";
+            targetSentenceEs.textContent = "Escucha con atención...";
+            wordDiffContainer.innerHTML = `<span class="word-pending">Escuchando a ${scenarioBotName.textContent}...</span>`;
+            phoneticTipText.textContent = turn.phoneticTip || "Escucha el ritmo y la entonación de la frase.";
+            btnRecordMic.disabled = true;
+          } else {
+            targetSentenceEn.textContent = turn.textEn;
+            targetSentenceEs.textContent = turn.textEs;
+            wordDiffContainer.innerHTML = `<span class="word-pending">Haz clic en el micrófono y lee en voz alta la frase objetivo...</span>`;
+            phoneticTipText.textContent = turn.phoneticTip || "Pronuncia con claridad y seguridad.";
+            btnRecordMic.disabled = false;
+            btnNextTurn.style.display = "none";
+          }
+        },
+
+        onBotSpeakingStart: () => {
+          transcriptionStatus.textContent = "Bot hablando...";
+          animateWaveform(true);
+        },
+
+        onBotSpeakingEnd: () => {
+          transcriptionStatus.textContent = "Tu turno de responder";
+          animateWaveform(false);
+        },
+
+        onStudentListeningStart: () => {
+          transcriptionStatus.textContent = "Escuchándote... ¡Habla ahora!";
+          btnRecordMic.classList.add("recording");
+          animateWaveform(true);
+        },
+
+        onStudentInterimTranscript: (transcript, isFinal) => {
+          if (!isFinal) {
+            wordDiffContainer.innerHTML = `<span style="color: var(--primary); font-weight: 600;">"${transcript}..."</span>`;
+          }
+        },
+
+        onStudentTurnEvaluated: (evaluation, spokenText) => {
+          btnRecordMic.classList.remove("recording");
+          animateWaveform(false);
+          transcriptionStatus.textContent = "¡Evaluado con éxito!";
+
+          wordDiffContainer.innerHTML = evaluation.results.map(r => {
+            if (r.status === "matched") {
+              return `<span class="word-matched" title="Pronunciación correcta">${r.word}</span>`;
+            } else {
+              return `<span class="word-mismatched" title="Intenta pronunciar mejor o se omitió">${r.word}</span>`;
+            }
+          }).join(" ");
+
+          const score = evaluation.institutionalScore;
+          currentScoreDisplay.textContent = score.toFixed(2);
+          if (evaluation.passed) {
+            scoreStatusBadge.className = "vf-badge vf-badge-success";
+            scoreStatusBadge.textContent = "Aprobado (>= 3.0)";
+          } else {
+            scoreStatusBadge.className = "vf-badge vf-badge-student";
+            scoreStatusBadge.style.color = "var(--danger)";
+            scoreStatusBadge.style.borderColor = "var(--danger)";
+            scoreStatusBadge.textContent = "Por Mejorar (< 3.0)";
+          }
+
+          appendBubble("student", "🎓", "Tú (Estudiante)", spokenText, targetSentenceEs.textContent, score);
+          btnNextTurn.style.display = "inline-flex";
+
+          if (evaluation.tips && evaluation.tips.length > 0) {
+            phoneticTipText.innerHTML = evaluation.tips.map(t => `<strong>Tip:</strong> ${t}`).join("<br/>");
+          }
+        },
+
+        onScenarioCompleted: (summary) => {
+          globalScoreText.textContent = summary.averageScore.toFixed(2);
+          avgAccuracyText.textContent = `${Math.round(summary.averageScore / 5.0 * 100)}%`;
+          turnsCompletedText.textContent = `${summary.totalTurns} / ${summary.totalTurns}`;
+
+          alert(`🎉 ¡Excelente! Has completado el escenario "${summary.scenario.title}".\nTu nota final es: ${summary.averageScore.toFixed(2)} / 5.00 ${summary.passed ? '✅ (Aprobado)' : '⚠️ (Refuerzo sugerido)'}`);
+        }
+      });
+
+      function appendBubble(role, avatar, name, textEn, textEs, score = null) {
+        const bubble = document.createElement("div");
+        bubble.className = `vf-bubble ${role === 'bot' ? 'vf-bubble-bot' : 'vf-bubble-student'}`;
+        
+        let scorePill = "";
+        if (score !== null) {
+          scorePill = `<span class="vf-badge ${score >= 3.0 ? 'vf-badge-success' : 'vf-badge-student'}" style="margin-left: 0.4rem; font-size: 0.65rem;">Nota: ${score.toFixed(2)}</span>`;
+        }
+
+        bubble.innerHTML = `
+          <div style="display: flex; align-items: center; gap: 0.35rem; margin-bottom: 0.2rem;">
+            <span>${avatar}</span>
+            <strong style="font-size: 0.8rem;">${name}</strong>
+            ${scorePill}
+          </div>
+          <div style="font-weight: 600; font-size: 1rem;">${textEn}</div>
+          <div style="font-size: 0.775rem; color: var(--text-muted); margin-top: 0.1rem;">${textEs}</div>
+        `;
+        dialogueStream.appendChild(bubble);
+        dialogueStream.scrollTop = dialogueStream.scrollHeight;
+      }
+
+      function resetScoreIndicators() {
+        currentScoreDisplay.textContent = "--";
+        scoreStatusBadge.className = "vf-badge";
+        scoreStatusBadge.textContent = "Sin Evaluar";
+        scoreStatusBadge.style.color = "var(--text-subtle)";
+      }
+
+      function animateWaveform(active) {
+        waveformBars.forEach(b => {
+          if (active) b.classList.add("active");
+          else b.classList.remove("active");
+        });
+      }
+
+      scenarioSelector.addEventListener("change", (e) => {
+        RoleplayEngine.loadScenario(e.target.value);
+      });
+
+      btnListenModel.addEventListener("click", () => {
+        RoleplayEngine.repeatBotAudio();
+      });
+
+      btnRecordMic.addEventListener("click", () => {
+        RoleplayEngine.startStudentSpeaking();
+      });
+
+      btnNextTurn.addEventListener("click", () => {
+        RoleplayEngine.nextTurn();
+      });
+
+      if (!SpeechEngine.isSpeechRecognitionSupported) {
+        btnSimulateVoice.style.display = "inline-flex";
+        btnSimulateVoice.addEventListener("click", () => {
+          const turn = RoleplayEngine.getCurrentTurn();
+          if (turn) {
+            RoleplayEngine.evaluateStudentSpeech(turn.textEn);
+          }
+        });
+      }
+
+      if (scenarios.length > 0) {
+        RoleplayEngine.loadScenario(scenarios[0].id);
+      }
+    });
+  </script>
+</body>
+</html>
